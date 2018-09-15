@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +29,15 @@ namespace reqMan.Controllers
         [HttpGet]
         public IEnumerable<Request> GetRequests()
         {
-            return _context.Requests;
+            User currentUser;
+            if(User.IsInRole(UserTypes.DB_ADMIN))
+            {
+                return _context.Requests;
+            }
+            else
+            {
+                return _context.Requests.Where(e => e.Username == User.Identity.Name);
+            }
         }
 
         // GET: api/Requests/5
@@ -88,7 +99,24 @@ namespace reqMan.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                
+
+                var smtpClient = new SmtpClient
+                {
+                    Host = "smtp.gmail.com", // set your SMTP server name here
+                    Port = 587, // Port 
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential("noyek.mail@gmail.com", "noy3k.mail_svc")
+                };
+
+                using (var message = new MailMessage("noyek.mail@gmail.com", _context.Users.Find(request.Username).Email)
+                {
+                    Subject = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State),
+                    Body = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State)
+                })
+                {
+                    await smtpClient.SendMailAsync(message);
+                }
+
             }
             catch (DbUpdateConcurrencyException)
             {

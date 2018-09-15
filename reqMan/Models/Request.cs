@@ -20,8 +20,8 @@ namespace reqMan.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; }
 
-        public User User { get; set; }
-        public RequestType RequestType { get; set; }
-        public ICollection<RequestAction> RequestActions { get; set; }
+        public virtual User User { get; set; }
+        public virtual  RequestType RequestType { get; set; }
+        public virtual ICollection<RequestAction> RequestActions { get; set; }
     }
 }

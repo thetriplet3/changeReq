@@ -47,6 +47,7 @@ namespace reqMan.Data
             modelBuilder.Entity<RequestAction>()
                 .Property(o => o.Date)
                 .HasDefaultValueSql("GETDATE()");
+
         }
 
         public DbSet<User> Users { get; set; }

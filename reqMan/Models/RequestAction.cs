@@ -20,7 +20,7 @@ namespace reqMan.Models
         public DateTime Date { get; set; }
 
         [JsonIgnore]
-        public Request Request { get; set; }
-        public User User { get; set; }
+        public virtual Request Request { get; set; }
+        public virtual User User { get; set; }
     }
 }

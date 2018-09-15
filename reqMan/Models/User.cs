@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,15 +13,14 @@ namespace reqMan.Models
     {
         [Key]
         public string Username { get; set; }
-        [Required]
         public string Email { get; set; }
+        [JsonIgnore]
         public string Password { get; set; }
         public string Firstname { get; set; }
         public string LastName { get; set; }
-        [Required]
         public string UserType { get; set; }
 
         [JsonIgnore]
-        public ICollection<Request> Requests { get; set; }
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

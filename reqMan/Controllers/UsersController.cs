@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using reqMan.Data;
+using reqMan.Helpers;
 using reqMan.Models;
 using reqMan.Models.Enumerations;
 
@@ -16,10 +23,57 @@ namespace reqMan.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public UsersController(ApplicationDbContext context)
+        private readonly AppSettings _appSettings;
+        
+        public UsersController(ApplicationDbContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]User userModel)
+        {
+            User currentUser;
+            if (ModelState.IsValid)
+            {
+                if (!UserAuthenticate(userModel.Username, userModel.Password))
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    currentUser = _context.Users.Find(userModel.Username);
+                }
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, currentUser.Username),
+                        new Claim(ClaimTypes.Role, currentUser.UserType)
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(20),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+
+                // return basic user info and token to store client side
+                return Ok(new
+                {
+                    User = currentUser,
+                    Token = tokenString
+                });
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         // GET: api/Users
@@ -133,6 +187,11 @@ namespace reqMan.Controllers
         }
 
         private bool UserExists(string id)
+        {
+            return _context.Users.Any(e => e.Username == id);
+        }
+
+        private bool UserAuthenticate(string id, string password)
         {
             return _context.Users.Any(e => e.Username == id);
         }
