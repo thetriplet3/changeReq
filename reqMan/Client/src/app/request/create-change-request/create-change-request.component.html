@@ -1,0 +1,96 @@
+<div class="modal fade" id="RequestAccessHR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header card-header card-header-danger">
+        <h4 class="modal-title card-title">Change Request</h4>
+        <!--<h5 class="modal-title" id="RequestAccessHRLongTitle">Request Access</h5>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body card-body">
+        <p class="card-category">Change Request for </p>
+        <form id="frmRequest">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="bmd-label-floating">Department</label>
+                <input type="text" id="departmentId" class="form-control" disabled value="Finance" data-db-value="DEP-03">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="bmd-label-floating">User ID</label>
+                <input type="text" id="userId" class="form-control" disabled value="dave">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">Application</label>
+                <input type="text" id="applicationId" class="form-control" disabled value="HR" data-db-value="APP-001">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="bmd-label-floating">Manager</label>
+                <input type="text" id="managerId" class="form-control" disabled value="Noyek Manager" data-db-value="manager">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">App Role</label>
+                <select class="form-control" id="applicationRole">
+                  <option>Normal</option>
+                  <option>Supervisor</option>
+                  <option>Administrator</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Access Type</label>
+                <select class="form-control" id="accessType">
+                  <option>Read-Only</option>
+                  <option>Full Access</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="bmd-label-floating ovr-label">Request Date</label>
+                <input type="date" id="requestDate" class="form-control" value="2018-07-15">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="bmd-label-floating ovr-label">Expire Date</label>
+                <input type="date" id="expireDate" class="form-control" value="2018-07-25">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group has-danger">
+                <label class="bmd-label-floating ovr-label">Reason</label>
+                <input type="text" id="reason" class="form-control">
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+      <div class="modal-footer card-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="btnRequest" class="btn btn-danger">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
