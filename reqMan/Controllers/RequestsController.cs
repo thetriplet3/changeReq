@@ -29,7 +29,6 @@ namespace reqMan.Controllers
         [HttpGet]
         public IEnumerable<Request> GetRequests()
         {
-            User currentUser;
             if(User.IsInRole(UserTypes.DB_ADMIN))
             {
                 return _context.Requests;
