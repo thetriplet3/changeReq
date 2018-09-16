@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  reqman:
+    image: ${DOCKER_REGISTRY}reqman
+    build:
+      context: .
+      dockerfile: reqMan\Dockerfile

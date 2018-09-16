@@ -1,14 +1,14 @@
 <form #loginForm="ngForm" class="col s12 white" (ngSubmit)="onSubmit(loginForm)">
   <div class="row">
     <div class="input-field col s12">
-      <input type="text" #UserName="ngModel" name="username" [(ngModel)]="userService.selectedUser.username"
+      <input type="text" #UserName="ngModel" name="username" [(ngModel)]="userService.selectedUser.Username"
         placeholder="Username">
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s12">
-      <input type="password" #Password="ngModel" name="password" [(ngModel)]="userService.selectedUser.password"
+      <input type="password" #Password="ngModel" name="password" [(ngModel)]="userService.selectedUser.Password"
         placeholder="Password">
     </div>
   </div>

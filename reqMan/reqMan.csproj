@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>Client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>084dffce-2648-4482-93e7-bf4cd387a247</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Client\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

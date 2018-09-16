@@ -1,4 +1,20 @@
-FROM microsoft/aspnetcore
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-sac2016 AS base
 WORKDIR /app
+EXPOSE 9491
+EXPOSE 44355
+
+FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 AS build
+WORKDIR /src
+COPY reqMan/reqMan.csproj reqMan/
+RUN dotnet restore reqMan/reqMan.csproj
 COPY . .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet reqMan.dll
+WORKDIR /src/reqMan
+RUN dotnet build reqMan.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish reqMan.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "reqMan.dll"]
