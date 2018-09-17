@@ -10,18 +10,21 @@ declare var $: any;
   styleUrls: ['./request-list.component.scss']
 })
 export class RequestListComponent implements OnInit {
-
+  console = console;
   requestList = [] as RequestType[];
-  displayedColumns: string[] = ['requestId', 'requestType', 'user', 'state', 'created', 'actions']
+  displayedColumns: string[] = ['requestId', 'requestType', 'user', 'state', 'created', 'actions'];
+  currentUser: any
 
   approveCR(reqObj: any) {
     var changeReq = {
       state: "APPROVED",
       requestId: reqObj.requestId,
       username: reqObj.username,
-      requestTypeId: reqObj.requestTypeId
+      requestTypeId: reqObj.requestTypeId,
+      dateRequested: reqObj.dateRequested
     }
     this.requestService.updateRequest(changeReq).subscribe((data: any) => {
+      this.refresh();
       $.notify({
         icon: "notifications",
         message: `Change Request ${reqObj.requestId} updated!`
@@ -41,9 +44,11 @@ export class RequestListComponent implements OnInit {
       state: "REJECTED",
       requestId: reqObj.requestId,
       username: reqObj.username,
-      requestTypeId: reqObj.requestTypeId
+      requestTypeId: reqObj.requestTypeId,
+      dateRequested: reqObj.dateRequested
     }
     this.requestService.updateRequest(changeReq).subscribe((data: any) => {
+      this.refresh();
       $.notify({
         icon: "notifications",
         message: `Change Request ${reqObj.requestId} updated!`
@@ -54,15 +59,21 @@ export class RequestListComponent implements OnInit {
             align: "right"
           }
         });
-      this.router.navigate(['/requests']);
     })
 
 
   }
 
+  refresh() {
+    this.requestService.getRequests().subscribe((data: any) => {
+      this.requestList = data;
+    });
+  }
+
   constructor(private requestService: RequestService, private router: Router) { }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.requestService.getRequests().subscribe((data: any) => {
       this.requestList = data;
     });

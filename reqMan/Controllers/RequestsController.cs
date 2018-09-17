@@ -113,7 +113,7 @@ namespace reqMan.Controllers
                     Body = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State)
                 })
                 {
-                    await smtpClient.SendMailAsync(message);
+                   smtpClient.Send(message);
                 }
 
             }
@@ -128,7 +128,10 @@ namespace reqMan.Controllers
                     throw;
                 }
             }
-
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
             return NoContent();
         }
 

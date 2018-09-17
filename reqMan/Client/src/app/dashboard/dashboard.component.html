@@ -1,8 +1,7 @@
-<div class="main-content">
+<div class="main-content background">
     <div class="container-fluid">
         <div class="row">
-
-            <div class="col-md-4" *ngFor="let requestType of requestTypeList">
+            <div class="col-md-4 requests" *ngFor="let requestType of requestTypeList">
                 <div class="card card-stats card-chart">
                     <div class="card-header card-header-info card-header-icon">
                         <!--<div class="ct-chart" id="dailySalesChart"></div> -->
@@ -14,9 +13,9 @@
                         <h4 class="card-title"> {{ requestType.name }} </h4>
                         <div class="card-category">
                             <div class="card-text">
-                                <p>Some quick example text to build on the card title and make up the bulk of the
-                                    card's content.</p>
-                                <button class="btn btn-outline-info" (click)="createCR(requestType.requestTypeId)">Change Request</button>
+                                <p>{{ requestType.description }}</p>
+                                <button class="btn btn-outline-info" (click)="createCR(requestType.requestTypeId)">Change
+                                    Request</button>
                             </div>
                         </div>
                     </div>

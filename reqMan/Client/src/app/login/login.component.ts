@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
       Username: '',
       Password: ''
     }
+    localStorage.setItem('currentUser', null);
   }
   onSubmit(form : NgForm){
     this.userService.userAuthentication(form.value).subscribe((data : any) => {

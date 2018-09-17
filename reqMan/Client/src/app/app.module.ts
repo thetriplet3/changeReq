@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { CreateChangeRequestComponent } from './request/create-change-request/create-change-request.component';
 import { LoginComponent } from './login/login.component';
+import { MatButtonModule, MatRippleModule, MatInputModule, MatTooltipModule } from '@angular/material';
 
 
 @NgModule({
@@ -38,6 +39,11 @@ import { LoginComponent } from './login/login.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    FormsModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatInputModule,
+    MatTooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

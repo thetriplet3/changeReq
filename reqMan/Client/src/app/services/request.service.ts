@@ -13,20 +13,20 @@ export class RequestService {
   constructor(private http: HttpClient) { }
 
   getRequests() {
-    return this.http.get<Request>('https://localhost:44355/api/Requests');
+    return this.http.get<Request>('/api/Requests');
   }
   getRequestTypes() {
-    return this.http.get<RequestType>('https://localhost:44355/api/RequestTypes');
+    return this.http.get<RequestType>('/api/RequestTypes');
   }
   getRequest(id) {
-    return this.http.get<Request>(`https://localhost:44355/api/Requests/${id}`);
+    return this.http.get<Request>(`/api/Requests/${id}`);
   }
 
   createRequest(requestObj) {
     
-    return this.http.post<Request>(`https://localhost:44355/api/Requests/`, requestObj);
+    return this.http.post<Request>(`/api/Requests/`, requestObj);
   }
   updateRequest(requestObj) {
-    return this.http.put<Request>(`https://localhost:44355/api/Requests/${requestObj.requestId}`, requestObj);
+    return this.http.put<Request>(`/api/Requests/${requestObj.requestId}`, requestObj);
   }
 }

@@ -1,6 +1,6 @@
-<div class="main-content">
+<div class="main-content background">
   <div class="container-fluid">
-    <div class="table-responsive">
+    <div class="table-responsive requests">
       <table mat-table [dataSource]="requestList" class="example-table" matSort matSortActive="dateRequested"
         matSortDisableClear matSortDirection="asc">
         <!-- Number Column -->
@@ -39,11 +39,11 @@
             Actions
           </th>
           <td mat-cell *matCellDef="let row">
-            <button *ngIf="row.state == 'REQUESTED' && row.user.userType == 'ADMIN'" type="button" rel="tooltip" title="Apporve Request" id="btnAppove"
+            <button *ngIf="row.state == 'REQUESTED' && currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Apporve Request" id="btnAppove"
               class="btn btn-success" (click) = "approveCR(row)">
               <i class="material-icons">done</i>
             </button>
-            <button *ngIf="row.state == 'REQUESTED' && row.user.userType == 'ADMIN'" type="button" rel="tooltip" title="Reject Request" id="btnReject"
+            <button *ngIf="row.state == 'REQUESTED' && currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Reject Request" id="btnReject"
               class="btn btn-danger" (click) = "rejectCR(row)">
               <i class="material-icons">close</i>
             </button>

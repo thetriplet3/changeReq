@@ -1,4 +1,4 @@
-<div class="logo">
+<div class="logo sbar">
     <a href="#" class="simple-text">
         <div class="logo-img">
             <img src="/assets/img/tim_80x80.png"/>
@@ -6,7 +6,7 @@
         HI {{this.currentUser.firstname}}
     </a>
 </div>
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper sbar">
   <div *ngIf="isMobileMenu()">
     <form class="navbar-form">
       <span class="bmd-form-group">
@@ -31,17 +31,14 @@
         <li class="nav-item dropdown">
             <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">notifications</i>
-                <span class="notification">5</span>
+                <span class="notification">2</span>
                 <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
                 </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                <a class="dropdown-item" href="#">Another Notification</a>
-                <a class="dropdown-item" href="#">Another One</a>
+                <a class="dropdown-item" href="#">Noyek John sent you a mail</a>
+                <a class="dropdown-item" href="#">You have 2 new change requests</a>
             </div>
         </li>
         <li class="nav-item">

@@ -1,8 +1,8 @@
 export class RequestType {
-    public RequestTypeSeq: number;
+    public requestTypeSeq: number;
     /*[Key]*/
-    public RequestTypeId: string;
+    public requestTypeId: string;
     /*[Required]*/
-    public Name: string;
-    public Description: string;
+    public name: string;
+    public description: string;
 }

@@ -17,6 +17,6 @@ export class UserService {
     var body = JSON.stringify(user);
 
     var headerOptions = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
-    return this.http.post('https://localhost:44355/api/Users/Authenticate', body, {headers : headerOptions});
+    return this.http.post('/api/Users/Authenticate', body, {headers : headerOptions});
   }
 }

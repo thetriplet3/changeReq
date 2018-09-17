@@ -1,0 +1,6 @@
+.navbar {
+    box-shadow: #888888;
+}
+.navbar.navbar-transparent {
+    padding-top: 0px !important; 
+}
