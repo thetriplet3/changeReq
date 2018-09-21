@@ -28,6 +28,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { CreateChangeRequestComponent } from './request/create-change-request/create-change-request.component';
 import { LoginComponent } from './login/login.component';
 import { MatButtonModule, MatRippleModule, MatInputModule, MatTooltipModule } from '@angular/material';
+import { ViewChangeRequestComponent } from './request/view-change-request/view-change-request.component';
 
 
 @NgModule({
@@ -51,7 +52,6 @@ import { MatButtonModule, MatRippleModule, MatInputModule, MatTooltipModule } fr
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    CreateChangeRequestComponent,
     LoginComponent,
   ],
   providers: [AuthGuard, {

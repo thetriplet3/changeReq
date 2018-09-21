@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestType } from '../../models/requestType.model';
+import { Request } from '../../models/request.model';
 import { RequestService } from '../../services/request.service';
 import { Router } from '@angular/router';
 declare var $: any;
@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class RequestListComponent implements OnInit {
   console = console;
-  requestList = [] as RequestType[];
+  requestList = [] as Request[];
   displayedColumns: string[] = ['requestId', 'requestType', 'user', 'state', 'created', 'actions'];
   currentUser: any
 

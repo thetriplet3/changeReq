@@ -22,6 +22,7 @@ import {
   MatTableModule,
 } from '@angular/material';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
+import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,6 +44,8 @@ import { RequestListComponent } from '../../request/request-list/request-list.co
     NotificationsComponent,
     UpgradeComponent,
     RequestListComponent,
+    CreateChangeRequestComponent,
+    ViewChangeRequestComponent,
   ]
 })
 

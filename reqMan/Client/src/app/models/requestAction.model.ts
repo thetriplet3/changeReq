@@ -4,8 +4,8 @@ import { User } from './user.model';
 export class RequestAction {
     /*[Key]*/
     public RequestActionSeq: number;
-    public RequestId: string;
-    public Username: string;
+    public requestId: string;
+    public username: string;
     public Action: string;
     public Comment: string;
     /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/

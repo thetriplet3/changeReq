@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { RequestService } from '../services/request.service';
 import { RequestType } from '../models/requestType.model';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   newRequest: any;
   requestTypeList = [] as RequestType[];
 
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService, private router: Router) { }
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
@@ -73,25 +74,7 @@ export class DashboardComponent implements OnInit {
   };
 
   createCR(requestTypeId: string) {
-    console.log(requestTypeId);
-    this.newRequest = {
-      RequestTypeId: requestTypeId,
-      Username: this.currentUser.username,
-      Description: "Change Request"
-    }
-
-    this.requestService.createRequest(this.newRequest).subscribe((data: any) => {
-      $.notify({
-        icon: "notifications",
-        message: `Change Request ${data.requestId} created!`
-
-      }, {
-          placement: {
-            from: "bottom",
-            align: "right"
-          }
-        });
-    });
+    this.router.navigate([`/requests/new`]);
   }
 
   ngOnInit() {

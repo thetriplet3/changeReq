@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.userService.selectedUser = {
-      Username: '',
-      Password: ''
+      username: '',
+      password: ''
     }
     localStorage.setItem('currentUser', null);
   }

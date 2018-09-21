@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateChangeRequestComponent } from '../../request/create-change-request/create-change-request.component';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
+import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -62,6 +63,8 @@ export const AdminLayoutRoutes: Routes = [
     // },
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'table-list', component: TableListComponent },
+    { path: 'requests/new', component: CreateChangeRequestComponent },
+    { path: 'requests/:requestId', component: ViewChangeRequestComponent },
     { path: 'requests', component: RequestListComponent },
     { path: 'typography', component: TypographyComponent },
     { path: 'icons', component: IconsComponent },
