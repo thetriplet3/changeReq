@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group has-info">
-              <label class="bmd-label-floating">Request Type</label>
+              <label class="bmd-label-floating" *ngIf="request.requestType">Request Type</label>
               <input type="text" class="form-control" id="requestTypeId" disabled value="{{request.requestType.name}}">
             </div>
           </div>

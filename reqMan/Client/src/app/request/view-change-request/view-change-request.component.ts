@@ -4,6 +4,8 @@ import { Request } from '../../models/request.model'
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { RequestType } from '../../models/requestType.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-view-change-request',
@@ -18,6 +20,9 @@ export class ViewChangeRequestComponent implements OnInit {
 
   ngOnInit() {
     this.request = new Request();
+    this.request.requestType = new RequestType();
+    this.request.user = new User();
+    
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('requestId')) {
         var requestId = paramMap.get('requestId');
