@@ -10,9 +10,9 @@
         <div class="col-md-6">
           <div class="form-group has-info">
             <label class="bmd-label-floating">Request Type</label>
-            <select class="form-control" id="requestTypeId" #requestTypeId="ngModel" name="requestTypeId" [(ngModel)]="request.requestTypeId">
-              <option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</option>
-            </select>
+            <mat-select class="form-control" id="requestTypeId" #requestTypeId="ngModel" name="requestTypeId" [(ngModel)]="request.requestTypeId">
+              <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</mat-option>
+            </mat-select>
           </div>
         </div>
         <div class="col-md-6">

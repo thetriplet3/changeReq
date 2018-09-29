@@ -23,6 +23,7 @@ import {
   MatProgressSpinnerModule,
   MatPaginatorModule,
   MatSortModule,
+  MatSelectModule,
 } from '@angular/material';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
 import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
@@ -39,6 +40,7 @@ import { ViewChangeRequestComponent } from '../../request/view-change-request/vi
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   declarations: [
     DashboardComponent,

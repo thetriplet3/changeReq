@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   currentUser: any;
   newRequest: any;
   requestTypeList = [] as RequestType[];
+  isLoading: boolean;
 
   constructor(private requestService: RequestService, private router: Router) { }
   startAnimationForLineChart(chart) {
@@ -78,10 +79,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(this.currentUser.username);
     this.requestService.getRequestTypes().subscribe((data: any) => {
       this.requestTypeList = data;
+      this.isLoading = false;
     });
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 

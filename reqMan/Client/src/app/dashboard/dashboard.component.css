@@ -28,3 +28,13 @@
   .requests {
     margin-top: 5%;
   }
+
+  mat-spinner {
+    margin:0 auto
+  }
+  .loading {
+    margin-top: 10%;
+  }
+  .loader-color::ng-deep circle {
+    stroke: white;
+  }
