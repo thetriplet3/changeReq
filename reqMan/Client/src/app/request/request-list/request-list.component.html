@@ -3,13 +3,25 @@
     <div class="loading" *ngIf="isLoading">
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </div>
+    <div class="search">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field *ngIf="!isLoading">
+            <input matInput [formControl]="requestIdFilter" placeholder="Request ID">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field *ngIf="!isLoading">
+            <mat-select [formControl]="requestTypeIdFilter" placeholder="Request Type" [(value)]="selectedValue">
+              <mat-option [value]="''" (click)="selectedValue = null"></mat-option>
+              <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
     <div class="table-responsive requests">
-      <mat-form-field *ngIf="!isLoading">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-      <mat-form-field *ngIf="!isLoading">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
+
       <table mat-table [dataSource]="dataSource" class="example-table" matSort [hidden]="isLoading">
         <!-- Number Column -->
         <ng-container matColumnDef="requestId">
@@ -62,7 +74,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="isLoading"></mat-paginator>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="isLoading"></mat-paginator>
     </div>
   </div>
 </div>

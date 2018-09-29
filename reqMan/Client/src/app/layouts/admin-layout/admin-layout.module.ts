@@ -41,6 +41,7 @@ import { ViewChangeRequestComponent } from '../../request/view-change-request/vi
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     DashboardComponent,

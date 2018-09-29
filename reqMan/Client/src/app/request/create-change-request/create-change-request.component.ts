@@ -14,22 +14,22 @@ declare var $: any;
   exportAs: 'app-create-change-request',
 })
 export class CreateChangeRequestComponent implements OnInit {
-  requestTypes : RequestType[] = [];
-  request : Request;
-  currentUser : any;
+  requestTypes: RequestType[] = [];
+  request: Request;
+  currentUser: any;
   constructor(private requestService: RequestService) { }
 
   ngOnInit() {
     this.request = new Request();
     this.request.dateRequested = new Date().toISOString().substring(0, 10);
-    this.requestService.getRequestTypes().subscribe((data : any) => {
+    this.requestService.getRequestTypes().subscribe((data: any) => {
       this.requestTypes = data;
     });
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   submitRequest(form: NgForm) {
-    let newRequest : Request = form.value;
+    let newRequest: Request = form.value;
     newRequest.username = this.currentUser.username;
 
     this.requestService.createRequest(newRequest).subscribe((data: any) => {
