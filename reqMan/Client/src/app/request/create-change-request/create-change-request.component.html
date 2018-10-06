@@ -1,5 +1,5 @@
 <div class="card request-body">
-  <div class="card-header card-header-info">
+  <div class="card-header card-header-blue">
     <h4 class="card-title">Change Request</h4>
     <!--<h5 class="modal-title" id="RequestAccessHRLongTitle">Request Access</h5>-->
   </div>
@@ -8,7 +8,7 @@
     <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
       <div class="row">
         <div class="col-md-6">
-          <div class="form-group has-info">
+          <div class="form-group has-blue">
             <label class="bmd-label-floating">Request Type</label>
             <mat-select class="form-control" id="requestTypeId" #requestTypeId="ngModel" name="requestTypeId" [(ngModel)]="request.requestTypeId">
               <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</mat-option>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="form-group has-info">
+          <div class="form-group has-blue">
             <label class="bmd-label-floating ovr-label">Request Date</label>
             <input type="date" id="requestDate" class="form-control" #dateRequested="ngModel" name="dateRequested"
               [(ngModel)]="request.dateRequested" required>
@@ -25,7 +25,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="form-group has-info">
+          <div class="form-group has-blue">
             <label class="bmd-label-floating ovr-label">Reason</label>
             <textarea  rows="3" id="reason" class="form-control" #description="ngModel" name="description" [(ngModel)]="request.description"></textarea>
           </div>
@@ -34,7 +34,7 @@
       <div class="row">
         <div class="col-md-12">
 
-          <button type="submit" id="btnRequest" class="btn btn-info">Create</button>
+          <button type="submit" id="btnRequest" class="btn btn-blue">Create</button>
         </div>
       </div>
     </form>

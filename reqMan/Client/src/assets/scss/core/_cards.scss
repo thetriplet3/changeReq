@@ -1,7 +1,8 @@
 //https://www.google.com/design/spec/components/cards.html#cards-content-blocks
 // Card resting elevation: 2dp
 .card {
-  border: 0;
+  border: solid;
+  border-color: $custom-blue;
   margin-bottom: 30px;
   margin-top: 30px;
   border-radius: $border-radius-large;
@@ -9,6 +10,7 @@
   background: $white-color;
   width: 100%;
 
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22) !important;
     .card-category:not([class*="text-"]) {
         color: $gray-color;
     }
@@ -177,6 +179,14 @@
     &.card-rotate.bg-info .back{
       background: linear-gradient(60deg, $cyan-400, $cyan-600);
     }
+    .card-header-blue .card-icon,
+    .card-header-blue .card-text,
+    .card-header-blue:not(.card-header-icon):not(.card-header-text),
+    &.bg-blue,
+    &.card-rotate.bg-blue .front,
+    &.card-rotate.bg-blue .back{
+      background: linear-gradient(60deg, $custom-blue, #12528a);
+    }
     .card-header-success .card-icon,
     .card-header-success .card-text,
     .card-header-success:not(.card-header-icon):not(.card-header-text),
@@ -241,6 +251,12 @@
     .card-header-info:not(.card-header-icon):not(.card-header-text),
     .card-header-info .card-text{
         @include shadow-big-color($brand-info);
+    }
+
+    .card-header-blue .card-icon,
+    .card-header-blue:not(.card-header-icon):not(.card-header-text),
+    .card-header-blue .card-text{
+        @include shadow-big-color($brand-custom-blue);
     }
 
     .card-header-success .card-icon,

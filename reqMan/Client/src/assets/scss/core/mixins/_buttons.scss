@@ -115,6 +115,9 @@
   &.btn-info {
     @include bmd-flat-button-variant($btn-info-bg);
   }
+  &.btn-blue {
+    @include bmd-flat-button-variant($btn-blue-bg);
+  }
   &.btn-success {
     @include bmd-flat-button-variant($btn-success-bg);
   }
@@ -131,6 +134,7 @@
   &.btn-outline-primary,
   &.btn-outline-secondary,
   &.btn-outline-info,
+  &.btn-outline-blue,
   &.btn-outline-success,
   &.btn-outline-warning,
   &.btn-outline-danger {
@@ -151,6 +155,9 @@
   }
   &.btn-outline-info {
     @include bmd-flat-button-variant($btn-info-bg, $btn-info-bg, $btn-info-bg, $btn-info-bg);
+  }
+  &.btn-outline-blue {
+    @include bmd-flat-button-variant($btn-blue-bg, $btn-blue-bg, $btn-blue-bg, $btn-blue-bg);
   }
   &.btn-outline-success {
     @include bmd-flat-button-variant($btn-success-bg, $btn-success-bg, $btn-success-bg, $btn-success-bg);
@@ -218,6 +225,9 @@
   }
   &.btn-info {
     @include bmd-raised-button-variant($btn-info-color, $btn-info-bg, $btn-info-border-color);
+  }
+  &.btn-blue {
+    @include bmd-raised-button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-border-color);
   }
   &.btn-success {
     @include bmd-raised-button-variant($btn-success-color, $btn-success-bg, $btn-success-border-color);

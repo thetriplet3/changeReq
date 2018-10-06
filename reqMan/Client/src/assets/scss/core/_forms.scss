@@ -102,6 +102,10 @@ form {
   @include bmd-form-color($brand-info, $brand-info, $brand-info, $input-border-color);
 }
 
+.has-blue {
+  @include bmd-form-color($brand-custom-blue, $brand-custom-blue, $brand-custom-blue, $input-border-color);
+}
+
 .has-white{
   @include bmd-form-color($white-color, $white-color, $white-color, $input-border-color-white);
 

@@ -23,3 +23,8 @@
   position: absolute;
   width: 260px;
 }
+
+.header-maroon {
+  background: linear-gradient(60deg, #913c34, #97291e);
+  background-image: linear-gradient(60deg, #913c34, #97291e);
+}

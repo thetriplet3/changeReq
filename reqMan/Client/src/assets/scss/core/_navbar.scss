@@ -151,6 +151,9 @@
     &.bg-dark{
         @include navbar-colors($grey-900, $white-color);
     }
+    &.bg-blue{
+        @include navbar-colors($bg-blue, $white-color);
+    }
 
     &.navbar-transparent{
         background-color: transparent !important;

@@ -70,6 +70,9 @@
     &.info-badge {
         @include badges-color($brand-info);
     }
+    &.blue-badge {
+        @include badges-color($brand-custom-blue);
+    }
     &.success-badge{
         @include badges-color($brand-success);
     }
@@ -90,6 +93,9 @@
     }
     &.badge-info {
         background-color: $brand-info;
+    }
+    &.badge-blue {
+        background-color: $brand-custom-blue;
     }
     &.badge-success{
         background-color: $brand-success;

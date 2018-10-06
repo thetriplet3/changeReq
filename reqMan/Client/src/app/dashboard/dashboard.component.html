@@ -6,7 +6,7 @@
         <div class="row" *ngIf="!isLoading">
             <div class="col-md-4 requests" *ngFor="let requestType of requestTypeList">
                 <div class="card card-stats card-chart">
-                    <div class="card-header card-header-info card-header-icon">
+                    <div class="card-header card-header-blue card-header-icon">
                         <!--<div class="ct-chart" id="dailySalesChart"></div> -->
                         <div class="card-icon">
                             <i class="material-icons">payment</i>
@@ -17,7 +17,7 @@
                         <div class="card-category">
                             <div class="card-text">
                                 <p>{{ requestType.description }}</p>
-                                <button class="btn btn-outline-info" (click)="createCR(requestType.requestTypeId)">Change
+                                <button class="btn btn-outline-blue" (click)="createCR(requestType.requestTypeId)">Change
                                     Request</button>
                             </div>
                         </div>

@@ -54,6 +54,9 @@
     &.popover-success{
         @include popover-color($success-color, $white-color);
     }
+    &.popover-success{
+        @include popover-color($success-color, $white-color);
+    }
 }
 
 

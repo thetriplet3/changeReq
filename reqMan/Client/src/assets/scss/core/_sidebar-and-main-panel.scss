@@ -321,6 +321,13 @@
     &[data-color="rose"]{
         @include set-background-color-button($brand-rose);
     }
+    &[data-color="maroon"]{
+        @include set-background-color-button($brand-custom-maroon);
+    }
+
+    &[data-color="blue"]{
+        @include set-background-color-button($brand-custom-blue);
+    }
 
     &[data-color="white"]{
         @include set-background-color-button($white-color);

@@ -361,6 +361,9 @@
     &.tag-info {
         @include tag-color($brand-info);
     }
+    &.tag-blue {
+      @include tag-color($brand-custom-blue);
+  }
     &.tag-success{
         @include tag-color($brand-success);
     }
