@@ -1,11 +1,11 @@
 <div class="main-content background">
   <div class="container-fluid">
-    <div class="card">
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div class="card data-load" *ngIf="!isLoading">
       <div class="card-header card-header-blue">
         <h4 class="card-title">Request List</h4>
-      </div>
-      <div class="loading" *ngIf="isLoading">
-        <mat-spinner *ngIf="isLoading"></mat-spinner>
       </div>
       <div class="card-body">
         <div class="search">

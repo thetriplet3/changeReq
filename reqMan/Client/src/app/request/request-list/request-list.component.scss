@@ -42,34 +42,6 @@
     max-width: 124px;
   }
   
-
-  .background {
-    overflow: auto;
-    position: relative;
-    margin: 0 1%;
-    padding: 0 15px;
-}
-
-.background:before {
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: -1;
-  
-    display: block;
-    background-image: url('../../../assets/img/aqua-copia.jpg');
-    background-size:cover;
-    width: 100%;
-    height: 100%;
-  
-    -webkit-filter: blur(5px) grayscale(100%);;
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px) grayscale(100%);;
-  }
-
 mat-spinner {
   margin:0 auto
 }

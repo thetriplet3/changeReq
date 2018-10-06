@@ -1,68 +1,87 @@
-<div *ngIf="request">
-  <div class="card request-body">
-    <div class="card-header card-header-blue">
-      <h4 class="card-title">Change Request</h4>
-    </div>
-    <div class="card-body">
-      <p class="card-category">Change Request - {{request.requestId}} </p>
-      <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating">Request ID</label>
-              <input type="text" class="form-control" id="requestId" #requestId="ngModel" name="requestId" [(ngModel)]="request.requestId">
+<div class="background">
+  <div *ngIf="request">
+    <div class="card request-body data-load">
+      <div class="card-header card-header-blue">
+        <h4 class="card-title">Change Request</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Change Request - {{request.requestId}} </p>
+        <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating">Request ID</label>
+                <input type="text" class="form-control" id="requestId" #requestId="ngModel" name="requestId"
+                  [(ngModel)]="request.requestId" disabled>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating" *ngIf="request.requestType">Request Type</label>
+                <input type="text" class="form-control" id="requestTypeId" disabled value="{{request.requestType.name}}">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating">Status</label>
+                <input type="text" class="form-control" id="state" #state="ngModel" name="state" [(ngModel)]="request.state"
+                  disabled>
+              </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating" *ngIf="request.requestType">Request Type</label>
-              <input type="text" class="form-control" id="requestTypeId" disabled value="{{request.requestType.name}}">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating">User</label>
+                <input type="text" class="form-control" id="username" disabled value="{{request.user.username}} - {{request.user.firstName}} {{request.user.lastName}}">
+              </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating">Status</label>
-              <input type="text" class="form-control" id="state" #state="ngModel" name="state" [(ngModel)]="request.state"
-                disabled>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating ovr-label">Requested Date</label>
+                <input type="date" id="requestDate" class="form-control" #dateRequested="ngModel" name="dateRequested"
+                  [(ngModel)]="request.dateRequested" disabled>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating ovr-label">Modified Date</label>
+                <input type="date" id="requestDate" class="form-control" #dateModified="ngModel" name="dateModified"
+                  [(ngModel)]="request.dateModified" disabled>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating">User</label>
-              <input type="text" class="form-control" id="username" disabled value="{{request.user.username}} - {{request.user.firstName}} {{request.user.lastName}}">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group has-blue">
+                <label class="bmd-label-floating ovr-label">Reason</label>
+                <textarea rows="3" id="reason" class="form-control" #description="ngModel" name="description"
+                  [(ngModel)]="request.description" disabled></textarea>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating ovr-label">Requested Date</label>
-              <input type="date" id="requestDate" class="form-control" #dateRequested="ngModel" name="dateRequested"
-                [(ngModel)]="request.dateRequested" disabled>
+
+          <div class="row">
+            <div class="col-md-6">
+              <button *ngIf="request.state == 'REQUESTED' && currentUser.userType == 'ADMIN'" type="button" rel="tooltip"
+                title="Apporve Request" id="btnAppove" class="btn btn-blue" (click)="processCR(request, 'APPROVED')"
+                [disabled]="isRunning">
+                APPROVE
+              </button>
+              <button *ngIf="request.state == 'REQUESTED' && currentUser.userType == 'ADMIN'" type="button" rel="tooltip"
+                title="Reject Request" id="btnReject" class="btn btn-outline-blue" (click)="processCR(request, 'REJECTED')"
+                [disabled]="isRunning">
+                REJECT
+              </button>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating ovr-label">Modified Date</label>
-              <input type="date" id="requestDate" class="form-control" #dateModified="ngModel" name="dateModified"
-                [(ngModel)]="request.dateModified" disabled>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group has-blue">
-              <label class="bmd-label-floating ovr-label">Reason</label>
-              <textarea rows="3" id="reason" class="form-control" #description="ngModel" name="description" [(ngModel)]="request.description"
-                disabled></textarea>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="card-footer">
+
+        </form>
+      </div>
+      <div class="card-footer">
+      </div>
     </div>
   </div>
 </div>

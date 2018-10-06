@@ -3,7 +3,7 @@
         <div class="loading" *ngIf="isLoading">
             <mat-spinner *ngIf="isLoading"></mat-spinner>
         </div>
-        <div class="row" *ngIf="!isLoading">
+        <div class="row data-load" *ngIf="!isLoading">
             <div class="col-md-4 requests" *ngFor="let requestType of requestTypeList">
                 <div class="card card-stats card-chart">
                     <div class="card-header card-header-blue card-header-icon">
