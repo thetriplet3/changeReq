@@ -63,6 +63,263 @@
             </div>
           </div>
 
+          <div id="details">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group has-blue">
+                  <label class="bmd-label-floating ovr-label">Employer Name</label>
+                  <input type="text" id="employer" class="form-control" #employer="ngModel" name="employer" [(ngModel)]="request.employer"
+                  disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="child-care" *ngIf="request.requestTypeId == 'REQ-T-001'">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Title</label>
+                    <input type="text" id="title" class="form-control" #title="ngModel" name="title" [(ngModel)]="request.title"
+                      required>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">First Name</label>
+                    <input type="text" id="firstName" class="form-control" #firstName="ngModel" name="firstName"
+                      [(ngModel)]="request.firstName" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" #lastName="ngModel" name="lastName"
+                      [(ngModel)]="request.lastName" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Job Title</label>
+                    <input type="text" id="jobTitle" class="form-control" #jobTitle="ngModel" name="jobTitle"
+                      [(ngModel)]="request.jobTitle" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Department</label>
+                    <input type="text" id="department" class="form-control" #department="ngModel" name="department"
+                      [(ngModel)]="request.department" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">National Insurance Number</label>
+                    <input type="text" id="nin" class="form-control" #nin="ngModel" name="nin" [(ngModel)]="request.nin" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Payroll Number</label>
+                    <input type="text" id="payrollNo" class="form-control" #payrollNo="ngModel" name="payrollNo"
+                      [(ngModel)]="request.payrollNo" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="address-field">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Address</label>
+                      <textarea rows="3" id="address" class="form-control" #address="ngModel" name="address"
+                        [(ngModel)]="request.address" disabled> </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Town/City</label>
+                      <input type="text" id="city" class="form-control" #city="ngModel" name="city" [(ngModel)]="request.city" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">County</label>
+                      <input type="text" id="county" class="form-control" #country="ngModel" name="county" [(ngModel)]="request.county" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Postal Code</label>
+                      <input type="number" id="postal" class="form-control" #postal="ngModel" name="postal" [(ngModel)]="request.postal" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Home Telephone Number</label>
+                    <input type="text" id="homeContactNo" class="form-control" #homeContactNo="ngModel" name="homeContactNo"
+                      [(ngModel)]="request.homeContactNo" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Work Telephone Number</label>
+                    <input type="text" id="workContactNo" class="form-control" #workContactNo="ngModel" name="workContactNo"
+                      [(ngModel)]="request.workContactNo" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" #email="ngModel" name="email" [(ngModel)]="request.email"
+                    disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Date of Birth</label>
+                    <input type="date" id="dob" class="form-control" #dob="ngModel" name="dob" [(ngModel)]="request.dob"
+                    disabled>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pension" *ngIf="request.requestTypeId == 'REQ-T-003'">
+              <div class="row" *ngIf="request.requestTypeId == 'REQ-T-003'">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Scheme Name</label>
+                    <input type="text" id="schemeName" class="form-control" #schemeName="ngModel" name="schemeName"
+                      [(ngModel)]="request.schemeName" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="request.requestTypeId == 'REQ-T-003'">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Scheme Number</label>
+                    <input type="number" id="schemeNumber" class="form-control" #schemeNumber="ngModel" name="schemeNumber"
+                      [(ngModel)]="request.schemeNumber" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" #fullName="ngModel" name="fullName"
+                      [(ngModel)]="request.fullName" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Date of Birth</label>
+                    <input type="date" id="dob" class="form-control" #dob="ngModel" name="dob" [(ngModel)]="request.dob"
+                    disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">National Insurance Number</label>
+                    <input type="text" id="nin" class="form-control" #nin="ngModel" name="nin" [(ngModel)]="request.nin" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="bmd-label-floating ovr-label"></label>
+                  <mat-checkbox color="primary" disabled>Not a Permanent NIN</mat-checkbox>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Nationality</label>
+                    <input type="text" id="nationality" class="form-control" #nationality="ngModel" name="nationality"
+                      [(ngModel)]="request.nationality" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Contact Number</label>
+                    <input type="text" id="contactNo" class="form-control" #contactNo="ngModel" name="contactNo"
+                      [(ngModel)]="request.contactNo" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="address-field">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Address</label>
+                      <textarea rows="3" id="address" class="form-control" #address="ngModel" name="address"
+                        [(ngModel)]="request.address" disabled> </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Town/City</label>
+                      <input type="text" id="city" class="form-control" #city="ngModel" name="city" [(ngModel)]="request.city" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">County</label>
+                      <input type="text" id="county" class="form-control" #country="ngModel" name="county" [(ngModel)]="request.county" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-blue">
+                      <label class="bmd-label-floating ovr-label">Postal Code</label>
+                      <input type="number" id="postal" class="form-control" #postal="ngModel" name="postal" [(ngModel)]="request.postal" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-blue">
+                    <label class="bmd-label-floating ovr-label">Reference</label>
+                    <input type="text" id="reference" class="form-control" #reference="ngModel" name="reference"
+                      [(ngModel)]="request.description" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-6">
               <button *ngIf="request.state == 'REQUESTED' && currentUser.userType == 'ADMIN'" type="button" rel="tooltip"

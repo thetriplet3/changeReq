@@ -27,7 +27,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { CreateChangeRequestComponent } from './request/create-change-request/create-change-request.component';
 import { LoginComponent } from './login/login.component';
-import { MatButtonModule, MatRippleModule, MatInputModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatRippleModule, MatInputModule, MatTooltipModule, MatCheckboxModule } from '@angular/material';
 import { ViewChangeRequestComponent } from './request/view-change-request/view-change-request.component';
 
 
@@ -45,6 +45,7 @@ import { ViewChangeRequestComponent } from './request/view-change-request/view-c
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
+    MatCheckboxModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
