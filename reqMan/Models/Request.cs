@@ -20,12 +20,19 @@ namespace reqMan.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; }
 
+
+        //Chid Care
+        public float CurrentAmount { get; set; }
+        public float RevisedAmount { get; set; }
+
         //Pension
-        public float PensionPerecentage { get; set;}
+        public float CurrentPensionPerecentage { get; set;}
+        public float RevisedPensionPerecentage { get; set; }
         public bool OptOut { get; set; }
 
         //Cycle to Work
         public string CycleSchemeRequest { get; set; }
+        public string CyclePartnerList { get; set; }
 
         //Gym and Season Ticket Loan
         public DateTime StartDate { get; set; }

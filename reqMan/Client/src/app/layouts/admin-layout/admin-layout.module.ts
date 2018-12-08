@@ -24,6 +24,7 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatSelectModule,
+  MatCheckboxModule,
 } from '@angular/material';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
 import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
@@ -41,6 +42,7 @@ import { ViewChangeRequestComponent } from '../../request/view-change-request/vi
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
   ],
   declarations: [

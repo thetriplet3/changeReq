@@ -16,12 +16,18 @@ export class Request {
     requestType: RequestType;
 
     
+    //Chid Care
+    currentAmount?: number;
+    revisedAmount?: number;
+
     //Pension
-    pensionPerecentage?: number;
+    currentPensionPerecentage?: number;
+    revisedPensionPerecentage?: number;
     optOut?: boolean;
 
     //Cycle to Work
     cycleSchemeRequest?: string;
+    cyclePartnerList?: string;
 
     //Gym and Season Ticket Loan
     startDate?: Date | string;
