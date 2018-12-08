@@ -163,11 +163,17 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="has-blue">
-              <label class="bmd-label-floating ovr-label">Attach Form</label>
-              <input type="file" class="form-control"  (change)="fileChange($event)" placeholder="Upload file"/>
+
+        <div class="attachment-panel">
+          <div class="row">
+            <div class="col-md-6">
+              <a href="request.attachmentDir">Download Form</a>
+            </div>
+            <div class="col-md-6">
+              <div class="has-blue">
+                <label class="bmd-label-floating ovr-label">Attach Form</label>
+                <input type="file" class="form-control" (change)="fileChange($event)" placeholder="Upload file" />
+              </div>
             </div>
           </div>
         </div>

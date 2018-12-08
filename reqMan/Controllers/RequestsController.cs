@@ -167,23 +167,31 @@ namespace reqMan.Controllers
 
             if (request.Attachment != null)
             {
-                string folderName = "forms";
-                string webRootPath = _hostingEnvironment.WebRootPath;
-                string newPath = Path.Combine(webRootPath, folderName);
-                string attachmentDir = Path.Combine(newPath, request.RequestId);
-
-                if (!Directory.Exists(attachmentDir))
+                try
                 {
-                    Directory.CreateDirectory(attachmentDir);
-                }
+                    string folderName = "forms";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    string attachmentDir = Path.Combine(newPath, request.RequestId);
 
-                string fileName = ContentDispositionHeaderValue.Parse(request.Attachment.ContentDisposition).FileName.Trim('"');
-                string fullPath = Path.Combine(attachmentDir, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    request.Attachment.CopyTo(stream);
+                    if (!Directory.Exists(attachmentDir))
+                    {
+                        Directory.CreateDirectory(attachmentDir);
+                    }
+
+                    string fileName = ContentDispositionHeaderValue.Parse(request.Attachment.ContentDisposition).FileName.Trim('"');
+                    string fullPath = Path.Combine(attachmentDir, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        request.Attachment.CopyTo(stream);
+                    }
+                    request.AttachmentDir = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
                 }
-                request.AttachmentDir = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw e;
+                }
 
             }
 
