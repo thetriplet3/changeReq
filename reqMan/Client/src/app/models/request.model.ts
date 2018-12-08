@@ -14,4 +14,22 @@ export class Request {
     dateModified: string;
     user: User;
     requestType: RequestType;
+
+    
+    //Pension
+    pensionPerecentage?: number;
+    optOut?: boolean;
+
+    //Cycle to Work
+    cycleSchemeRequest?: string;
+
+    //Gym and Season Ticket Loan
+    startDate?: Date | string;
+
+    //Season Ticket Loan
+    zoneFrom?: string; 
+    zoneTo?: string;
+
+    //Taste Card
+    tasteCardLink?: string;
 }

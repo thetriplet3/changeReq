@@ -10,6 +10,21 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group has-blue">
+              <label class="bmd-label-floating ovr-label">Employee ID</label>
+              <input type="text" id="username" class="form-control" [value]="currentUser.username" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-blue">
+              <label class="bmd-label-floating ovr-label">Employee Name</label>
+              <input type="text" id="username" class="form-control" [value]="currentUser.firstName + ' ' + currentUser.lastName "
+                disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-blue">
               <label class="bmd-label-floating">Request Type</label>
               <mat-select class="form-control" id="requestTypeId" #requestTypeId="ngModel" name="requestTypeId"
                 [(ngModel)]="request.requestTypeId">

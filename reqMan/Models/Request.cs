@@ -20,6 +20,23 @@ namespace reqMan.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; }
 
+        //Pension
+        public float PensionPerecentage { get; set;}
+        public bool OptOut { get; set; }
+
+        //Cycle to Work
+        public string CycleSchemeRequest { get; set; }
+
+        //Gym and Season Ticket Loan
+        public DateTime StartDate { get; set; }
+
+        //Season Ticket Loan
+        public string ZoneFrom { get; set; } 
+        public string ZoneTo { get; set; }
+
+        //Taste Card
+        public string TasteCardLink { get; set; }
+
         public virtual User User { get; set; }
         public virtual  RequestType RequestType { get; set; }
         public virtual ICollection<RequestAction> RequestActions { get; set; }
