@@ -167,7 +167,7 @@ namespace reqMan.Controllers
 
             if (request.Attachment != null)
             {
-                string folderName = "Forms";
+                string folderName = "forms";
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 string newPath = Path.Combine(webRootPath, folderName);
                 string attachmentDir = Path.Combine(newPath, request.RequestId);

@@ -1,6 +1,6 @@
 [
     {
-      "context": ["/api/**", "/Forms/**"],
+      "context": ["/api/**", "/forms/**"],
       "target": "http://reqman-dev.us-west-2.elasticbeanstalk.com/",
       "secure": false
     }
