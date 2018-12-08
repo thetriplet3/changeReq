@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +23,12 @@ namespace reqMan.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public RequestsController(ApplicationDbContext context)
+        private IHostingEnvironment _hostingEnvironment;
+        
+        public RequestsController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: api/Requests
@@ -136,13 +142,16 @@ namespace reqMan.Controllers
         }
 
         // POST: api/Requests
-        [HttpPost]
-        public async Task<IActionResult> PostRequest([FromBody] Request request)
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> PostRequest([FromForm] Request data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            Request request = data;
+
             if (!UsertExists(request.Username))
             {
                 return BadRequest("User does not exist.");
@@ -155,6 +164,28 @@ namespace reqMan.Controllers
 
             request.RequestId = GetNextRequestId();
             request.State = RequestStates.DB_REQUESTED;
+
+            if (request.Attachment != null)
+            {
+                string folderName = "Forms";
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string newPath = Path.Combine(webRootPath, folderName);
+                string attachmentDir = Path.Combine(newPath, request.RequestId);
+
+                if (!Directory.Exists(attachmentDir))
+                {
+                    Directory.CreateDirectory(attachmentDir);
+                }
+
+                string fileName = ContentDispositionHeaderValue.Parse(request.Attachment.ContentDisposition).FileName.Trim('"');
+                string fullPath = Path.Combine(attachmentDir, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    request.Attachment.CopyTo(stream);
+                }
+                request.AttachmentDir = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
+
+            }
 
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();

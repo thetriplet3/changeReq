@@ -14,7 +14,7 @@ export class Request {
     dateModified: string;
     user: User;
     requestType: RequestType;
-
+    attachment?: File;
     
     //Chid Care
     currentAmount?: number;
@@ -38,4 +38,11 @@ export class Request {
 
     //Taste Card
     tasteCardLink?: string;
+}
+
+export interface Attachment {
+    fileName: string;
+    fileType: string;
+    fileUrl: string;
+    fileLocation: string;
 }

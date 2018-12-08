@@ -51,19 +51,21 @@ export class RequestListComponent implements OnInit {
       this.requestList['isRunning'] = false;
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.requestList);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
 
       this.requestIdFilter.valueChanges.subscribe((requestIdFilterValue) => {
         this.filteredValues['requestId'] = requestIdFilterValue;
         this.dataSource.filter = JSON.stringify(this.filteredValues);
       });
-  
+
       this.requestTypeIdFilter.valueChanges.subscribe((requestTypeIdValue) => {
         this.filteredValues['requestTypeId'] = requestTypeIdValue;
         this.dataSource.filter = JSON.stringify(this.filteredValues);
       });
-  
+
       this.dataSource.filterPredicate = this.customFilterPredicate();
     });
 

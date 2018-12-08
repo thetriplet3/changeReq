@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +20,9 @@ namespace reqMan.Models
         public DateTime DateRequested { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; }
-
+        [NotMapped]
+        public IFormFile Attachment { get; set; }
+        public string AttachmentDir { get; set; }
 
         //Chid Care
         public float CurrentAmount { get; set; }
