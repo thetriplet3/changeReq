@@ -170,6 +170,10 @@ namespace reqMan.Controllers
                 try
                 {
                     string folderName = "forms";
+                    if (string.IsNullOrWhiteSpace(_hostingEnvironment.WebRootPath))
+                    {
+                        _hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                    }
                     string webRootPath = _hostingEnvironment.WebRootPath;
                     string newPath = Path.Combine(webRootPath, folderName);
                     string attachmentDir = Path.Combine(newPath, request.RequestId);
