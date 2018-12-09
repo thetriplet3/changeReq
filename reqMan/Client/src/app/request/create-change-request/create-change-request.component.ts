@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { RequestType } from '../../models/requestType.model';
 import { Request, Attachment } from '../../models/request.model'
@@ -20,7 +20,13 @@ export class CreateChangeRequestComponent implements OnInit {
   currentUser: any;
   attachments: Attachment[];
   selectedFiles: File[];
+
+  STR_ATTACH_FORM: string = "Attach Form"
+  STR_UPLOAD_FORM: string = "Upload Form"
+
   constructor(private requestService: RequestService) { }
+
+  @ViewChild('btnAttachForm') btnAttachForm : ElementRef;
 
   ngOnInit() {
     this.request = new Request();
@@ -77,6 +83,11 @@ export class CreateChangeRequestComponent implements OnInit {
         //this.attachments.push(attachment);
         this.selectedFiles.push(file);
       }
+      console.log(this.btnAttachForm.nativeElement);
+      this.btnAttachForm.nativeElement.innerHTML = `${file.name}(${Math.round(file.size/(1024))}KB)`;
+    }
+    else {
+      this.btnAttachForm.nativeElement.innerHTML = this.STR_ATTACH_FORM;
     }
   }
   requestTypeChanged(event) {
