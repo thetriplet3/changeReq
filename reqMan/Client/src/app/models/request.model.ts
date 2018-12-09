@@ -15,7 +15,7 @@ export class Request {
     user: User;
     requestType: RequestType;
     attachment?: File;
-    attachmentDir?: string;
+    attachmentPath?: string;
     
     //Chid Care
     currentAmount?: number;

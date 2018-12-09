@@ -22,7 +22,7 @@ namespace reqMan.Models
         public DateTime DateModified { get; set; }
         [NotMapped]
         public IFormFile Attachment { get; set; }
-        public string AttachmentDir { get; set; }
+        public string AttachmentPath { get; set; }
 
         //Chid Care
         public float CurrentAmount { get; set; }

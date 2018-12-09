@@ -26,9 +26,9 @@
           <div class="col-md-6">
             <div class="form-group has-blue">
               <label class="bmd-label-floating">Request Type</label>
-              <mat-select class="form-control" id="requestTypeId" #requestTypeId="ngModel" name="requestTypeId"
-                [(ngModel)]="request.requestTypeId">
-                <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</mat-option>
+              <mat-select class="form-control" id="requestType" #requestType="ngModel" name="requestType" [(ngModel)]="request.requestType"
+                (selectionChange)="requestTypeChanged($event)">
+                <mat-option *ngFor="let requestType of requestTypes" [value]="requestType">{{requestType.name}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -166,20 +166,21 @@
 
         <div class="attachment-panel">
           <div class="row">
-            <div class="col-md-6">
-              <a href="request.attachmentDir">Download Form</a>
+            <div class="form-download" *ngIf="requestTypeFormPath">
+              <div class="col-md-6">
+                <button class="btn btn-blue" (click)="downloadForm(requestTypeFormPath)">Download Form</button>
+              </div>
             </div>
             <div class="col-md-6">
               <div class="has-blue">
-                <label class="bmd-label-floating ovr-label">Attach Form</label>
-                <input type="file" class="form-control" (change)="fileChange($event)" placeholder="Upload file" />
+                <button type="button" class="btn btn-blue" (click)="fileAttach.click()">Attach Form</button>
+                <input type="file" class="form-control" #fileAttach (change)="fileChange($event)" placeholder="Upload file" hidden />
               </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-
             <button type="submit" id="btnRequest" class="btn btn-blue">Create</button>
           </div>
         </div>

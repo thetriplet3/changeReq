@@ -15,6 +15,7 @@ declare var $: any;
 })
 export class CreateChangeRequestComponent implements OnInit {
   requestTypes: RequestType[] = [];
+  requestTypeFormPath: string;
   request: Request;
   currentUser: any;
   attachments: Attachment[];
@@ -34,6 +35,7 @@ export class CreateChangeRequestComponent implements OnInit {
     let newFormData = new FormData();
     let newRequest: Request = form.value;
     newRequest.username = this.currentUser.username;
+    newRequest.requestTypeId = form.value.requestType.requestTypeId
 
     for (var key in newRequest) {
       newFormData.append(key, newRequest[key])
@@ -76,5 +78,11 @@ export class CreateChangeRequestComponent implements OnInit {
         this.selectedFiles.push(file);
       }
     }
+  }
+  requestTypeChanged(event) {
+    this.requestTypeFormPath = event.value.formPath;
+  }
+  downloadForm(path: string) {
+    window.open(path);
   }
 }

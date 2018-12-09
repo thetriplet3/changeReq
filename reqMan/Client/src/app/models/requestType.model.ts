@@ -5,4 +5,5 @@ export class RequestType {
     /*[Required]*/
     public name: string;
     public description: string;
+    public formPath?: string;
 }

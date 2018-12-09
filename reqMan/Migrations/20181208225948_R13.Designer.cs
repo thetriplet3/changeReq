@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using reqMan.Data;
 
 namespace reqMan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181208225948_R13")]
+    partial class R13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +48,8 @@ namespace reqMan.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description");
+
+                    b.Property<string>("FormPath");
 
                     b.Property<bool>("OptOut");
 
@@ -109,8 +113,6 @@ namespace reqMan.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("FormPath");
 
                     b.Property<string>("Name")
                         .IsRequired();

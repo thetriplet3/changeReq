@@ -185,7 +185,7 @@ namespace reqMan.Controllers
                     {
                         request.Attachment.CopyTo(stream);
                     }
-                    request.AttachmentDir = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
+                    request.AttachmentPath = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
                 }
                 catch (Exception e)
                 {
