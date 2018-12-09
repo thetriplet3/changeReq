@@ -30,6 +30,7 @@ export class CreateChangeRequestComponent implements OnInit {
 
   ngOnInit() {
     this.request = new Request();
+    this.request.requestType = new RequestType();
     this.request.dateRequested = new Date().toISOString().substring(0, 10);
     this.requestService.getRequestTypes().subscribe((data: any) => {
       this.requestTypes = data;

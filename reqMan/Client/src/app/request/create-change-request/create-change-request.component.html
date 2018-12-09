@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="req-child-care" *ngIf="request.requestTypeId == 'REQ-T-001'">
+        <div class="req-child-care" *ngIf="request.requestType.requestTypeId == 'REQ-T-001'">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group has-blue">
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <div class="req-pension" *ngIf="request.requestTypeId == 'REQ-T-003'">
+        <div class="req-pension" *ngIf="request.requestType.requestTypeId == 'REQ-T-003'">
           <div class="row">
             <div class="col-md-5">
               <div class="form-group has-blue">
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="req-cycle" *ngIf="request.requestTypeId == 'REQ-T-002'">
+        <div class="req-cycle" *ngIf="request.requestType.requestTypeId == 'REQ-T-002'">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group has-blue">
@@ -103,7 +103,7 @@
           </div>
         </div>
 
-        <div class="req-benifits" *ngIf="request.requestTypeId == 'REQ-T-004'">
+        <div class="req-benifits" *ngIf="request.requestType.requestTypeId == 'REQ-T-004'">
           <div class="req-benifits-gym">
             <div class="row">
               <div class="col-md-6">
