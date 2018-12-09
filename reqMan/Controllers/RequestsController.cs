@@ -190,7 +190,8 @@ namespace reqMan.Controllers
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    throw e;
+                    return BadRequest(e);
+                    //throw e;
                 }
 
             }
