@@ -1,6 +1,6 @@
 {
-  "name": "material-dashboard-angular",
-  "version": "2.1.1",
+  "name": "req-man",
+  "version": "0.7.5",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

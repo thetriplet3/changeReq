@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using reqMan.Data;
 
 namespace reqMan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181208163219_R09")]
+    partial class R09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,13 +29,9 @@ namespace reqMan.Migrations
                     b.Property<string>("RequestId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AttachmentPath");
-
                     b.Property<float>("CurrentAmount");
 
                     b.Property<float>("CurrentPensionPerecentage");
-
-                    b.Property<string>("CyclePartnerList");
 
                     b.Property<string>("CycleSchemeRequest");
 
@@ -109,8 +107,6 @@ namespace reqMan.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("FormPath");
 
                     b.Property<string>("Name")
                         .IsRequired();

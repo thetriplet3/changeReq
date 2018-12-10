@@ -14,4 +14,36 @@ export class Request {
     dateModified: string;
     user: User;
     requestType: RequestType;
+    attachment?: File;
+    attachmentPath?: string;
+    
+    //Chid Care
+    currentAmount?: number;
+    revisedAmount?: number;
+
+    //Pension
+    currentPensionPerecentage?: number;
+    revisedPensionPerecentage?: number;
+    optOut?: boolean;
+
+    //Cycle to Work
+    cycleSchemeRequest?: string;
+    cyclePartnerList?: string;
+
+    //Gym and Season Ticket Loan
+    startDate?: Date | string;
+
+    //Season Ticket Loan
+    zoneFrom?: string; 
+    zoneTo?: string;
+
+    //Taste Card
+    tasteCardLink?: string;
+}
+
+export interface Attachment {
+    fileName: string;
+    fileType: string;
+    fileUrl: string;
+    fileLocation: string;
 }

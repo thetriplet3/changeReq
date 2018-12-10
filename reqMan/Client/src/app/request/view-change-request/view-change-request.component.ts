@@ -71,5 +71,8 @@ export class ViewChangeRequestComponent implements OnInit {
       this.isRunning = false;
     });
   }
+  downloadForm(path: string) {
+    window.open(path);
+  }
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,32 @@ namespace reqMan.Models
         public DateTime DateRequested { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; }
+        [NotMapped]
+        public IFormFile Attachment { get; set; }
+        public string AttachmentPath { get; set; }
+
+        //Chid Care
+        public float CurrentAmount { get; set; }
+        public float RevisedAmount { get; set; }
+
+        //Pension
+        public float CurrentPensionPerecentage { get; set;}
+        public float RevisedPensionPerecentage { get; set; }
+        public bool OptOut { get; set; }
+
+        //Cycle to Work
+        public string CycleSchemeRequest { get; set; }
+        public string CyclePartnerList { get; set; }
+
+        //Gym and Season Ticket Loan
+        public DateTime StartDate { get; set; }
+
+        //Season Ticket Loan
+        public string ZoneFrom { get; set; } 
+        public string ZoneTo { get; set; }
+
+        //Taste Card
+        public string TasteCardLink { get; set; }
 
         public virtual User User { get; set; }
         public virtual  RequestType RequestType { get; set; }
