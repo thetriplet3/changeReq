@@ -1,0 +1,15 @@
+﻿{
+  "manifestVersion": 1,
+  "deployments": {
+    "aspNetCoreWeb": [
+      {
+        "name": "app",
+        "scripts": {
+          "postInstall": {
+            "file": "AWS/WriteAccess.ps1"
+          }
+        }
+      }
+    ]
+  }
+}
