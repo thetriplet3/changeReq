@@ -4,6 +4,8 @@ import { RequestType } from '../../models/requestType.model';
 import { Request, Attachment } from '../../models/request.model'
 import { NgForm } from '@angular/forms';
 
+import { ErrorHandler } from '../../validators/error-handler/error-handler.component'
+
 declare var $: any;
 
 
@@ -26,7 +28,7 @@ export class CreateChangeRequestComponent implements OnInit {
 
   constructor(private requestService: RequestService) { }
 
-  @ViewChild('btnAttachForm') btnAttachForm : ElementRef;
+  @ViewChild('btnAttachForm') btnAttachForm: ElementRef;
 
   ngOnInit() {
     this.request = new Request();
@@ -65,6 +67,9 @@ export class CreateChangeRequestComponent implements OnInit {
             align: "right"
           }
         });
+    }, (error: any) => {
+      console.log(error);
+      ErrorHandler.showErrorMessages(error.error);
     });
   }
 
@@ -85,7 +90,7 @@ export class CreateChangeRequestComponent implements OnInit {
         this.selectedFiles.push(file);
       }
       console.log(this.btnAttachForm.nativeElement);
-      this.btnAttachForm.nativeElement.innerHTML = `${file.name}(${Math.round(file.size/(1024))}KB)`;
+      this.btnAttachForm.nativeElement.innerHTML = `${file.name}(${Math.round(file.size / (1024))}KB)`;
     }
     else {
       this.btnAttachForm.nativeElement.innerHTML = this.STR_ATTACH_FORM;

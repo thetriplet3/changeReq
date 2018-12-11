@@ -67,14 +67,14 @@
               <div class="form-group has-blue">
                 <label class="bmd-label-floating ovr-label">Current</label>
                 <input type="number" id="currentAmount" class="form-control" #currentAmount="ngModel" name="currentAmount"
-                  [(ngModel)]="request.currentAmount" required>
+                  [(ngModel)]="request.currentAmount" min="1" max="99" required>
               </div>
             </div>
             <div class="col-md-5">
               <div class="form-group has-blue">
                 <label class="bmd-label-floating">Revised</label>
                 <input type="number" id="revisedAmount" class="form-control" #revisedAmount="ngModel" name="revisedAmount"
-                  [(ngModel)]="request.revisedAmount" required>
+                  [(ngModel)]="request.revisedAmount" min="1" max="99" required>
               </div>
             </div>
             <div class="col-md-2">

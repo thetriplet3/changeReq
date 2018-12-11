@@ -162,6 +162,15 @@ namespace reqMan.Controllers
                 return BadRequest("Request Type does not exist.");
             }
 
+            string validatorResponse = Validators.RequestValidator.ValidateRequest(request);
+
+            if (validatorResponse != string.Empty)
+            {
+                IDictionary<string, string> errorResponse = new Dictionary<string, string>();
+                errorResponse.Add("ValidationError", validatorResponse);
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+            }
+
             request.RequestId = GetNextRequestId();
             request.State = RequestStates.DB_REQUESTED;
 
