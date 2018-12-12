@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using reqMan.Data;
 using reqMan.Models;
 using reqMan.Models.Enumerations;
+using reqMan.Validators;
 
 namespace reqMan.Controllers
 {
@@ -151,24 +152,12 @@ namespace reqMan.Controllers
             }
 
             Request request = data;
+            RequestValidator requestValidator = new RequestValidator();
+            IDictionary<string, string> validatorResponse = requestValidator.ValidateRequest(_context, request);
 
-            if (!UsertExists(request.Username))
+            if (validatorResponse.Keys.Count > 0)
             {
-                return BadRequest("User does not exist.");
-            }
-
-            if (!RequestTypeExists(request.RequestTypeId))
-            {
-                return BadRequest("Request Type does not exist.");
-            }
-
-            string validatorResponse = Validators.RequestValidator.ValidateRequest(request);
-
-            if (validatorResponse != string.Empty)
-            {
-                IDictionary<string, string> errorResponse = new Dictionary<string, string>();
-                errorResponse.Add("ValidationError", validatorResponse);
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+                return StatusCode(StatusCodes.Status500InternalServerError, validatorResponse);
             }
 
             request.RequestId = GetNextRequestId();

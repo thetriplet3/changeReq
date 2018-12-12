@@ -9,37 +9,49 @@ namespace reqMan.Validators
 {
     public class RequestValidator
     {
+        private IDictionary<string, string> validatorMessages;
 
-        public static string ValidateRequest(ApplicationDbContext _context, Request request)
+        public RequestValidator()
         {
-            if(request.RequestTypeId == "REQ-T-003")
-            {
-                return PensionValidator(request);
-            }
-            return string.Empty;
+            validatorMessages = new Dictionary<string, string>();
         }
-        private static string PensionValidator(Request request)
+
+        public IDictionary<string, string> ValidateRequest(ApplicationDbContext _context, Request request)
+        {
+            validatorMessages.Clear();
+
+            CommonValidator(_context, request);
+
+            if (request.RequestTypeId == "REQ-T-003")
+            {
+                PensionValidator(request);
+            }
+            return validatorMessages;
+        }
+
+        private void PensionValidator(Request request)
         {
             string message = string.Empty;
             if(!(request.CurrentPensionPerecentage.In(1, 99) || request.RevisedPensionPerecentage.In(1, 99)))
             {
                 message = "Current and Revised values should be in between 1 and 99.";
+                validatorMessages.Add("PensionValError", message);
             }
-            return message;
         }
 
-        private static string CommonValidator(ApplicationDbContext _context, Request request)
+        private void CommonValidator(ApplicationDbContext _context, Request request)
         {
             string message = string.Empty;
             if (!_context.Users.Any(e => e.Username == request.Username))
             {
-                message = "";
+                message = "User does not exist.";
+                validatorMessages.Add("InvalidUserError", message);
             }
             if(!_context.RequestType.Any(e => e.RequestTypeId == request.Username))
             {
-
+                message = "Request Type does not exist.";
+                validatorMessages.Add("InvalidRequestTypeError", message);
             }
-            return message;
         }
 
        
