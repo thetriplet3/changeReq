@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from '../models/user.model';
 
 
@@ -18,5 +18,21 @@ export class UserService {
 
     var headerOptions = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
     return this.http.post('/api/Users/Authenticate', body, {headers : headerOptions});
+  }
+
+  getUsers() {
+    return this.http.get<User>('/api/Users');
+  }
+  
+  getUser(id) {
+    return this.http.get<User>(`/api/Users/${id}`);
+  }
+
+  createUser(userObj) {
+    
+    return this.http.post<User>(`/api/Users/`, userObj);
+  }
+  updateUser(userObj) {
+    return this.http.put<User>(`/api/Users/${userObj.userId}`, userObj);
   }
 }

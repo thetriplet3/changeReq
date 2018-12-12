@@ -11,6 +11,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateChangeRequestComponent } from '../../request/create-change-request/create-change-request.component';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
 import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
+import { UserDetailComponent } from 'app/user/user-detail/user-detail.component';
+import { UserListComponent } from 'app/user/user-list/user-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -66,6 +68,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'requests/new', component: CreateChangeRequestComponent },
     { path: 'requests/:requestId', component: ViewChangeRequestComponent },
     { path: 'requests', component: RequestListComponent },
+    { path: 'users/new', component: UserDetailComponent },
+    { path: 'users/:username', component: UserDetailComponent },
+    { path: 'users', component: UserListComponent },
     { path: 'typography', component: TypographyComponent },
     { path: 'icons', component: IconsComponent },
     { path: 'maps', component: MapsComponent },
