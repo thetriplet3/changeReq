@@ -23,6 +23,9 @@ export class CreateChangeRequestComponent implements OnInit {
   attachments: Attachment[];
   selectedFiles: File[];
 
+  isValidated: boolean = false;
+  isRunning: boolean = false;
+
   STR_ATTACH_FORM: string = "Attach Form"
   STR_UPLOAD_FORM: string = "Upload Form"
 
@@ -37,10 +40,12 @@ export class CreateChangeRequestComponent implements OnInit {
     this.requestService.getRequestTypes().subscribe((data: any) => {
       this.requestTypes = data;
     });
+    this.request.optOut = false;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   submitRequest(form: NgForm) {
+    this.isRunning = true;
     let newFormData = new FormData();
     let newRequest: Request = form.value;
     newRequest.username = this.currentUser.username;
@@ -57,6 +62,7 @@ export class CreateChangeRequestComponent implements OnInit {
     }
 
     this.requestService.createRequest(newFormData).subscribe((data: any) => {
+      this.isRunning = false;
       $.notify({
         icon: "notifications",
         message: `Change Request <strong><a href="/requests/${data.requestId}"> ${data.requestId}</a></strong> created!`
@@ -68,7 +74,7 @@ export class CreateChangeRequestComponent implements OnInit {
           }
         });
     }, (error: any) => {
-      console.log(error);
+      this.isRunning = false;
       ErrorHandler.showErrorMessages(error.error);
     });
   }

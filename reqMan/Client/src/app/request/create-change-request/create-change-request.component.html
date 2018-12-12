@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="col-md-2">
-              <mat-checkbox id="optOut" #optOut="ngModel" name="optOut" [(ngModel)]="request.optOut" color="primary">Opt
+              <mat-checkbox id="optOut" #optOut="ngModel" name="optOut" [(ngModel)]="request.optOut" color="primary" >Opt
                 Out</mat-checkbox>
             </div>
           </div>
@@ -181,7 +181,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <button type="submit" id="btnRequest" class="btn btn-blue">Create</button>
+            <button type="submit" id="btnRequest" class="btn btn-blue" [disabled]="isRunning">Create</button>
           </div>
         </div>
       </form>
