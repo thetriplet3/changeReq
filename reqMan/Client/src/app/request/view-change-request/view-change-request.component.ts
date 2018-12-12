@@ -27,6 +27,7 @@ export class ViewChangeRequestComponent implements OnInit {
     this.request.user = new User();
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')); 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      console.log(paramMap);
       if (paramMap.has('requestId')) {
         var requestId = paramMap.get('requestId');
         this.requestService.getRequest(requestId).subscribe((data: any) => {

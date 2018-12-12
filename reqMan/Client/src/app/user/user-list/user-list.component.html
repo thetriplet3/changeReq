@@ -23,6 +23,12 @@
                 </mat-select>
               </mat-form-field>
             </div>
+            <div class="col-md-4 text-right">
+              <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Update Employee" id="btnAppove"
+                class="btn btn-blue" (click)="processUser(row, 'UPDATE')" [disabled]="false">
+                Add Employee
+              </button>
+            </div>
           </div>
         </div>
         <div class="table-responsive users">
@@ -56,17 +62,17 @@
             </ng-container>
 
             <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef [hidden]="currentUser.userType != 'ADMIN'">
+              <th mat-header-cell *matHeaderCellDef [hidden]="currentUser.userType != 'ADMIN1'">
                 Actions
               </th>
-              <td mat-cell *matCellDef="let row" [hidden]="currentUser.userType != 'ADMIN'">
+              <td mat-cell *matCellDef="let row" [hidden]="currentUser.userType != 'ADMIN1'">
                 <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Update Employee" id="btnAppove"
-                  class="btn btn-success" (click)="processUser(row, 'UPDATE')" [disabled]="row.isRunning">
-                  <i class="material-icons">done</i>
+                  class="btn btn-blue" (click)="processUser(row, 'UPDATE')" [disabled]="row.isRunning">
+                  Update
                 </button>
                 <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Delete Employee" id="btnReject"
                   class="btn btn-danger" (click)="processUser(row, 'DELETE')" [disabled]="row.isRunning">
-                  <i class="material-icons">close</i>
+                  Delete
                 </button>
               </td>
             </ng-container>
