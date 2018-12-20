@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
       <p class="card-category"></p>
-      <form #frmUser="ngForm" id="frmUser" (ngSubmit)="submitUser(frmUser)">
+      <form #frmUser="ngForm" id="frmUser">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group has-blue">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
           <div class="col-md-6">
             <div class="form-group has-blue">
               <label class="bmd-label-floating">Employee Type</label>
@@ -40,10 +40,10 @@
               </mat-select>
             </div>
           </div>
-        </div>
+        </div>-->
         <div class="row">
           <div class="col-md-12">
-            <button type="submit" id="btnUser" class="btn btn-blue" [disabled]="isRunning">Create</button>
+            <button type="submit" id="btnUser" class="btn btn-blue" [disabled]="isRunning">Action</button>
           </div>
         </div>
       </form>

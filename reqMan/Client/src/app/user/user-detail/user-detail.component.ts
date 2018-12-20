@@ -12,6 +12,7 @@ export class UserDetailComponent implements OnInit {
 
   user: User;
   title: string;
+  isRunning: true;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
