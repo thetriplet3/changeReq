@@ -5,6 +5,7 @@ import { Request, Attachment } from '../../models/request.model'
 import { NgForm } from '@angular/forms';
 
 import { ErrorHandler } from '../../validators/error-handler/error-handler.component'
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 declare var $: any;
 
@@ -29,19 +30,30 @@ export class CreateChangeRequestComponent implements OnInit {
   STR_ATTACH_FORM: string = "Attach Form"
   STR_UPLOAD_FORM: string = "Upload Form"
 
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService, private route: ActivatedRoute) { }
 
   @ViewChild('btnAttachForm') btnAttachForm: ElementRef;
 
   ngOnInit() {
     this.request = new Request();
     this.request.requestType = new RequestType();
+    this.request.requestType.requestTypeId = "REQ-T-002";
     this.request.dateRequested = new Date().toISOString().substring(0, 10);
     this.requestService.getRequestTypes().subscribe((data: any) => {
       this.requestTypes = data;
     });
     this.request.optOut = false;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('requestTypeId')) {
+        var requestTypeId = paramMap.get('requestTypeId');
+        this.request.requestTypeId = requestTypeId;
+        this.requestService.getRequestType(requestTypeId).subscribe((data) => {
+          this.requestTypeFormPath = data.formPath;
+        });
+      }
+    });
   }
 
   submitRequest(form: NgForm) {
@@ -49,7 +61,7 @@ export class CreateChangeRequestComponent implements OnInit {
     let newFormData = new FormData();
     let newRequest: Request = form.value;
     newRequest.username = this.currentUser.username;
-    newRequest.requestTypeId = form.value.requestType.requestTypeId
+    newRequest.requestTypeId = form.value.requestType
 
     for (var key in newRequest) {
       newFormData.append(key, newRequest[key])
@@ -95,7 +107,6 @@ export class CreateChangeRequestComponent implements OnInit {
         //this.attachments.push(attachment);
         this.selectedFiles.push(file);
       }
-      console.log(this.btnAttachForm.nativeElement);
       this.btnAttachForm.nativeElement.innerHTML = `${file.name}(${Math.round(file.size / (1024))}KB)`;
     }
     else {
@@ -103,7 +114,9 @@ export class CreateChangeRequestComponent implements OnInit {
     }
   }
   requestTypeChanged(event) {
-    this.requestTypeFormPath = event.value.formPath;
+    this.requestService.getRequestType(event.value).subscribe((data) => {
+      this.requestTypeFormPath = data.formPath;
+    });
   }
   downloadForm(path: string) {
     window.open(path);

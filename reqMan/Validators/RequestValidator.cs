@@ -47,7 +47,7 @@ namespace reqMan.Validators
                 message = "User does not exist.";
                 validatorMessages.Add("InvalidUserError", message);
             }
-            if(!_context.RequestType.Any(e => e.RequestTypeId == request.Username))
+            if(!_context.RequestType.Any(e => e.RequestTypeId == request.RequestTypeId))
             {
                 message = "Request Type does not exist.";
                 validatorMessages.Add("InvalidRequestTypeError", message);

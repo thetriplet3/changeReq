@@ -18,6 +18,9 @@ export class RequestService {
   getRequestTypes() {
     return this.http.get<RequestType>('/api/RequestTypes');
   }
+  getRequestType(id) {
+    return this.http.get<RequestType>(`/api/RequestTypes/${id}`);
+  }
   getRequest(id) {
     return this.http.get<Request>(`/api/Requests/${id}`);
   }

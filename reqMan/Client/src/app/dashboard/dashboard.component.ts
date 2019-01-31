@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
   };
 
   createCR(requestTypeId: string) {
-    this.router.navigate([`/requests/new`]);
+    this.router.navigate([`/requests/new/${requestTypeId}`]);
   }
 
   ngOnInit() {
