@@ -1,0 +1,87 @@
+<div class="main-content background">
+  <div class="container-fluid">
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div class="card data-load" *ngIf="!isLoading">
+      <div class="card-header card-header-blue">
+        <h4 class="card-title">User List</h4>
+      </div>
+      <div class="card-body">
+        <div class="search">
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field *ngIf="!isLoading">
+                <input matInput [formControl]="usernameFilter" placeholder="Employee ID">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field *ngIf="!isLoading">
+                <mat-select [formControl]="userTypeIdFilter" placeholder="Employee Type" [(value)]="selectedValue">
+                  <mat-option [value]="''" (click)="selectedValue = null"></mat-option>
+                  <mat-option *ngFor="let userType of userTypes" [value]="userType.userTypeId">{{userType.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 text-right">
+              <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Update Employee" id="btnAppove"
+                class="btn btn-blue" (click)="processUser(row, 'UPDATE')" [disabled]="false">
+                Add Employee
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive users">
+          <table mat-table [dataSource]="dataSource" class="example-table" matSort [hidden]="isLoading">
+            <!-- Number Column -->
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</th>
+              <td mat-cell *matCellDef="let row"><a [routerLink]="['/users', row.username]">{{row.username}}</a></td>
+            </ng-container>
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="userType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Type</th>
+              <td mat-cell *matCellDef="let row">{{row.userType}}</td>
+            </ng-container>
+
+            <!-- State Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let row">{{row.email}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+              <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+              <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef [hidden]="currentUser.userType != 'ADMIN1'">
+                Actions
+              </th>
+              <td mat-cell *matCellDef="let row" [hidden]="currentUser.userType != 'ADMIN1'">
+                <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Update Employee" id="btnAppove"
+                  class="btn btn-blue" (click)="processUser(row, 'UPDATE')" [disabled]="row.isRunning">
+                  Update
+                </button>
+                <button *ngIf="currentUser.userType == 'ADMIN'" type="button" rel="tooltip" title="Delete Employee" id="btnReject"
+                  class="btn btn-danger" (click)="processUser(row, 'DELETE')" [disabled]="row.isRunning">
+                  Delete
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="isLoading"></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

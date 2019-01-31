@@ -1,0 +1,54 @@
+<div class="background">
+  <div class="card user-body data-load">
+    <div class="card-header card-header-blue">
+      <h4 class="card-title">{{title}}</h4>
+      <!--<h5 class="modal-title" id="UserAccessHRLongTitle">Employee Access</h5>-->
+    </div>
+    <div class="card-body">
+      <p class="card-category"></p>
+      <form #frmUser="ngForm" id="frmUser">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group has-blue">
+              <label class="bmd-label-floating ovr-label">Employee ID</label>
+              <input type="text" class="form-control" id="username" #username="ngModel" name="username" [(ngModel)]="user.username"
+                [disabled]="false">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group has-blue">
+              <label class="bmd-label-floating ovr-label">Employee First Name</label>
+              <input type="text" class="form-control" id="firstName" #firstName="ngModel" name="firstName" [(ngModel)]="user.firstName"
+                [disabled]="false">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group has-blue">
+              <label class="bmd-label-floating ovr-label">Employee Last Name</label>
+              <input type="text" class="form-control" id="lastName" #lastName="ngModel" name="lastName" [(ngModel)]="user.lastName"
+                [disabled]="false">
+            </div>
+          </div>
+        </div>
+        <!--<div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-blue">
+              <label class="bmd-label-floating">Employee Type</label>
+              <mat-select class="form-control" id="userType" #userType="ngModel" name="userType" [(ngModel)]="user.userType"
+                (selectionChange)="userTypeChanged($event)" [disabled]="false">
+                <mat-option *ngFor="let userType of userTypes" [value]="userType">{{userType.name}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>-->
+        <div class="row">
+          <div class="col-md-12">
+            <button type="submit" id="btnUser" class="btn btn-blue" [disabled]="isRunning">Action</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+</div>

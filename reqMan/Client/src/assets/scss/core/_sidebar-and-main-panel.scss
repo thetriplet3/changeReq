@@ -326,6 +326,7 @@
     }
 
     &[data-color="blue"]{
+        @include sidebar-background-color($brand-custom-blue, $font-color);
         @include set-background-color-button($brand-custom-blue);
     }
 

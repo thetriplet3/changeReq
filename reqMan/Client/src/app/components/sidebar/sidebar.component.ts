@@ -11,6 +11,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
     // { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
     { path: '/requests', title: 'Requests', icon: 'content_paste', class: '' },
+    { path: '/users', title: 'Users', icon: 'person', class: '' },
     { path: '/login', title: 'Logout', icon: 'unarchive', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
@@ -32,12 +33,22 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        console.log(this.currentUser);
     }
+
     isMobileMenu() {
         if ($(window).width() > 991) {
             return false;
         }
         return true;
     };
+
+    showMenuItem(menuItem: RouteInfo): boolean {
+        if(menuItem.path == "/users") {
+            if(this.currentUser.userType != "ADMIN") {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

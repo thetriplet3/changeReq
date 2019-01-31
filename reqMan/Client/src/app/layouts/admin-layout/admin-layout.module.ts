@@ -28,6 +28,9 @@ import {
 } from '@angular/material';
 import { RequestListComponent } from '../../request/request-list/request-list.component';
 import { ViewChangeRequestComponent } from '../../request/view-change-request/view-change-request.component';
+import { UserComponent } from 'app/user/user.component';
+import { UserListComponent } from 'app/user/user-list/user-list.component';
+import { UserDetailComponent } from 'app/user/user-detail/user-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +60,9 @@ import { ViewChangeRequestComponent } from '../../request/view-change-request/vi
     RequestListComponent,
     CreateChangeRequestComponent,
     ViewChangeRequestComponent,
+    UserComponent,
+    UserListComponent,
+    UserDetailComponent,
   ]
 })
 
