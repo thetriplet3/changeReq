@@ -17,6 +17,7 @@ declare var $: any;
   exportAs: 'app-create-change-request',
 })
 export class CreateChangeRequestComponent implements OnInit {
+
   requestTypes: RequestType[] = [];
   requestTypeFormPath: string;
   request: Request;
