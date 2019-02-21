@@ -50,7 +50,7 @@ export class ViewChangeRequestComponent implements OnInit {
       requestTypeId: reqObj.requestTypeId,
       dateRequested: reqObj.dateRequested
     }
-    this.requestService.updateRequest(changeReq).subscribe((data: any) => {
+    this.requestService.updateRequest(Object.assign(reqObj, changeReq)).subscribe((data: any) => {
       this.refresh();
       $.notify({
         icon: "notifications",

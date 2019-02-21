@@ -23,12 +23,14 @@ export class CreateChangeRequestComponent implements OnInit {
   currentUser: any;
   attachments: Attachment[];
   selectedFiles: File[];
+  requestTypeTitle: string;
 
   isValidated: boolean = false;
   isRunning: boolean = false;
 
   STR_ATTACH_FORM: string = "Attach Form"
   STR_UPLOAD_FORM: string = "Upload Form"
+  STR_DOWNLOAD_FORM: string = "Download Form";
 
   constructor(private requestService: RequestService, private route: ActivatedRoute) { }
 
@@ -48,9 +50,16 @@ export class CreateChangeRequestComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('requestTypeId')) {
         var requestTypeId = paramMap.get('requestTypeId');
+        if(requestTypeId === "REQ-T-002") {
+          this.STR_DOWNLOAD_FORM = "FAQ";
+        }
+        else {
+          this.STR_DOWNLOAD_FORM = "Download Form";
+        }
         this.request.requestTypeId = requestTypeId;
         this.requestService.getRequestType(requestTypeId).subscribe((data) => {
           this.requestTypeFormPath = data.formPath;
+          this.requestTypeTitle = data.name;
         });
       }
     });
@@ -61,7 +70,7 @@ export class CreateChangeRequestComponent implements OnInit {
     let newFormData = new FormData();
     let newRequest: Request = form.value;
     newRequest.username = this.currentUser.username;
-    newRequest.requestTypeId = form.value.requestType
+    newRequest.requestTypeId = this.request.requestTypeId
 
     for (var key in newRequest) {
       newFormData.append(key, newRequest[key])
