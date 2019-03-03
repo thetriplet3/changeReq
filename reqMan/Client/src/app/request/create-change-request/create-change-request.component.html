@@ -2,10 +2,11 @@
   <div class="card request-body data-load">
     <div class="card-header card-header-blue">
       <h4 class="card-title">Change Request - {{requestTypeTitle}}</h4>
-      <!--<h5 class="modal-title" id="RequestAccessHRLongTitle">Request Access</h5>-->
     </div>
     <div class="card-body">
-      <p class="card-category"></p>
+      <div class="alert alert-warning" *ngIf="!isAfter10th">
+        This request will be only considered on next payroll since cutoff date(10th) has passed
+      </div>
       <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
         <div class="row">
           <div class="col-md-6">

@@ -71,6 +71,39 @@ namespace reqMan.Controllers
             return Ok(request);
         }
 
+        [HttpGet("{id}/Validate")]
+        public async Task<IActionResult> PreValidateRequest([FromRoute] string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var request = await _context.Requests.FindAsync(id);
+            PreValidator preVal = new PreValidator();
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                DateTime dateTime = DateTime.Now;
+                DateTime requestedDate = request.DateRequested;
+
+                if(dateTime.Year == requestedDate.Year && dateTime.Month == requestedDate.Month)
+                {
+                    if(requestedDate.Day > 10)
+                    {
+                        preVal.IsOver10th = true;
+                    }
+                }
+            }
+
+            return Ok(preVal);
+        }
+
         // PUT: api/Requests/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRequest([FromRoute] string id, [FromBody] Request request)
@@ -234,6 +267,20 @@ namespace reqMan.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(request);
+        }
+
+        [HttpGet("Validate")]
+        public IActionResult ValidateRequest()
+        {
+            DateTime dateTime = DateTime.Now;
+            PreValidator preVal = new PreValidator();
+
+            if (dateTime.Day > 10)
+            {
+                preVal.IsOver10th = true;
+            }
+
+            return Ok(preVal);
         }
 
         private bool RequestExists(string id)

@@ -18,6 +18,7 @@ export class ViewChangeRequestComponent implements OnInit {
   request: Request;
   currentUser: any;
   isRunning: boolean = true;
+  isAfter10th: boolean = false;
 
   constructor(private requestService: RequestService, private route: ActivatedRoute) { }
 
@@ -27,9 +28,11 @@ export class ViewChangeRequestComponent implements OnInit {
     this.request.user = new User();
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')); 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      console.log(paramMap);
       if (paramMap.has('requestId')) {
         var requestId = paramMap.get('requestId');
+        this.requestService.validateRequest(requestId).subscribe((res) =>{
+          this.isAfter10th = res.isAfter10th;
+        })
         this.requestService.getRequest(requestId).subscribe((data: any) => {
           this.request = data;
           this.request.dateRequested = data.dateRequested.substring(0, 10);

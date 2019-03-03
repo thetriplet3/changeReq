@@ -28,6 +28,7 @@ export class CreateChangeRequestComponent implements OnInit {
 
   isValidated: boolean = false;
   isRunning: boolean = false;
+  isAfter10th: boolean = false;
 
   STR_ATTACH_FORM: string = "Attach Form"
   STR_UPLOAD_FORM: string = "Upload Form"
@@ -47,6 +48,10 @@ export class CreateChangeRequestComponent implements OnInit {
     });
     this.request.optOut = false;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    this.requestService.preValidateRequest().subscribe((res) =>{
+      this.isAfter10th = res.isAfter10th;
+    })
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('requestTypeId')) {

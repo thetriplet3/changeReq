@@ -24,12 +24,16 @@ export class RequestService {
   getRequest(id) {
     return this.http.get<Request>(`/api/Requests/${id}`);
   }
-
   createRequest(requestObj) {
-    
     return this.http.post<Request>(`/api/Requests/`, requestObj);
   }
   updateRequest(requestObj) {
     return this.http.put<Request>(`/api/Requests/${requestObj.requestId}`, requestObj);
+  }
+  preValidateRequest() {
+    return this.http.get<any>("/api/Requests/Validate");
+  }
+  validateRequest(id) {
+    return this.http.get<any>(`/api/Requests/${id}/Validate`);
   }
 }

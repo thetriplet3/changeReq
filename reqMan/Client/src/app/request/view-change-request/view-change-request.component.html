@@ -6,6 +6,9 @@
       </div>
       <div class="card-body">
         <p class="card-category">Change Request - {{request.requestId}} </p>
+        <div class="alert alert-warning" *ngIf="isAfter10th">
+          This request will be only considered on next payroll since cutoff date(10th) has passed
+        </div>
         <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
           <div class="row">
             <div class="col-md-6">
