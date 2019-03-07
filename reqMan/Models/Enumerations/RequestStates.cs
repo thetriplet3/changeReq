@@ -7,16 +7,19 @@ namespace reqMan.Models.Enumerations
 {
     public class RequestStates
     {
+        public static string DB_SAVED = "SAVED";
         public static string DB_REQUESTED = "REQUESTED";
         public static string DB_APPROVED = "APPROVED";
         public static string DB_REJECED = "REJECTED";
 
+        public static string CLIENT_SAVED = "Saved";
         public static string CLIENT_REQUESTED = "Requested";
         public static string CLIENT_APPROVED = "Approved";
         public static string CLIENT_REJECED = "Rejected";
 
         public static List<string> StateCollection = new List<string>()
         {
+            DB_SAVED,
             DB_REQUESTED,
             DB_APPROVED,
             DB_REJECED

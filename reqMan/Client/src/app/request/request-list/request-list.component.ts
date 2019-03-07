@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Request } from '../../models/request.model';
 import { RequestService } from '../../services/request.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { RequestType } from '../../models/requestType.model';
 import { FormControl } from '@angular/forms';
@@ -37,7 +37,7 @@ export class RequestListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private requestService: RequestService, private router: Router) {
+  constructor(private requestService: RequestService, private route: ActivatedRoute,) {
   }
 
   ngOnInit() {

@@ -42,7 +42,20 @@ namespace reqMan.Controllers
             }
             else
             {
-                return _context.Requests.Where(e => e.Username == User.Identity.Name);
+                return _context.Requests.Where(e => e.Username == User.Identity.Name && e.State != RequestStates.DB_SAVED);
+            }
+        }
+
+        [HttpGet("Saved")]
+        public IEnumerable<Request> GetSavedRequests()
+        {
+            if (User.IsInRole(UserTypes.DB_ADMIN))
+            {
+                return _context.Requests;
+            }
+            else
+            {
+                return _context.Requests.Where(e => e.Username == User.Identity.Name && e.State == RequestStates.DB_SAVED);
             }
         }
 
@@ -104,6 +117,123 @@ namespace reqMan.Controllers
             return Ok(preVal);
         }
 
+        [HttpPut("{id}/Save")]
+        public async Task<IActionResult> SaveRequest([FromRoute] string id, [FromForm] Request request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != request.RequestId)
+            {
+                return BadRequest();
+            }
+
+            if (!UsertExists(request.Username))
+            {
+                return BadRequest("User does not exist.");
+            }
+
+            if (!RequestTypeExists(request.RequestTypeId))
+            {
+                return BadRequest("Request Type does not exist.");
+            }
+
+            if (!RequestStates.IsValidState(request.State))
+            {
+                return BadRequest("Request State does not exist.");
+            }
+
+            if (request.State == RequestStates.DB_SAVED)
+            {
+
+                var oldRequest = _context.Requests.AsNoTracking().First(rec => rec.RequestId == id);
+
+                if (oldRequest != null && oldRequest.State != RequestStates.DB_SAVED)
+                {
+                    return BadRequest("Request is already submitted");
+                }
+            }
+
+            try
+            {
+                if (request.Attachment != null)
+                {
+                    try
+                    {
+                        string folderName = "forms";
+                        if (string.IsNullOrWhiteSpace(_hostingEnvironment.WebRootPath))
+                        {
+                            _hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                        }
+                        string webRootPath = _hostingEnvironment.WebRootPath;
+                        string newPath = Path.Combine(webRootPath, folderName);
+                        string attachmentDir = Path.Combine(newPath, request.RequestId);
+
+                        if (!Directory.Exists(attachmentDir))
+                        {
+                            Directory.CreateDirectory(attachmentDir);
+                        }
+
+                        string fileName = ContentDispositionHeaderValue.Parse(request.Attachment.ContentDisposition).FileName.Trim('"');
+                        string fullPath = Path.Combine(attachmentDir, fileName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            request.Attachment.CopyTo(stream);
+                        }
+                        request.AttachmentPath = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        return BadRequest(e);
+                        //throw e;
+                    }
+
+                }
+
+                _context.Entry(request).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                if (request.State != RequestStates.DB_REQUESTED || request.State != RequestStates.DB_SAVED)
+                {
+                    var smtpClient = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com", // set your SMTP server name here
+                        Port = 587, // Port 
+                        EnableSsl = true,
+                        Credentials = new NetworkCredential("noyek.mail@gmail.com", "noy3k.mail_svc")
+                    };
+
+                    using (var message = new MailMessage("noyek.mail@gmail.com", _context.Users.Find(request.Username).Email)
+                    {
+                        Subject = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State),
+                        Body = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State)
+                    })
+                    {
+                        smtpClient.Send(message);
+                    }
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RequestExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+            return NoContent();
+        }
+
         // PUT: api/Requests/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRequest([FromRoute] string id, [FromBody] Request request)
@@ -137,25 +267,61 @@ namespace reqMan.Controllers
 
             try
             {
+                if (request.Attachment != null)
+                {
+                    try
+                    {
+                        string folderName = "forms";
+                        if (string.IsNullOrWhiteSpace(_hostingEnvironment.WebRootPath))
+                        {
+                            _hostingEnvironment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                        }
+                        string webRootPath = _hostingEnvironment.WebRootPath;
+                        string newPath = Path.Combine(webRootPath, folderName);
+                        string attachmentDir = Path.Combine(newPath, request.RequestId);
+
+                        if (!Directory.Exists(attachmentDir))
+                        {
+                            Directory.CreateDirectory(attachmentDir);
+                        }
+
+                        string fileName = ContentDispositionHeaderValue.Parse(request.Attachment.ContentDisposition).FileName.Trim('"');
+                        string fullPath = Path.Combine(attachmentDir, fileName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            request.Attachment.CopyTo(stream);
+                        }
+                        request.AttachmentPath = string.Format("{0}://{1}/{2}/{3}/{4}", Request.Scheme, Request.Host.Value, folderName, request.RequestId, fileName);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        return BadRequest(e);
+                        //throw e;
+                    }
+
+                }
                 await _context.SaveChangesAsync();
 
-                var smtpClient = new SmtpClient
+                if (request.State != RequestStates.DB_REQUESTED)
                 {
-                    Host = "smtp.gmail.com", // set your SMTP server name here
-                    Port = 587, // Port 
-                    EnableSsl = true,
-                    Credentials = new NetworkCredential("noyek.mail@gmail.com", "noy3k.mail_svc")
-                };
+                    var smtpClient = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com", // set your SMTP server name here
+                        Port = 587, // Port 
+                        EnableSsl = true,
+                        Credentials = new NetworkCredential("noyek.mail@gmail.com", "noy3k.mail_svc")
+                    };
 
-                using (var message = new MailMessage("noyek.mail@gmail.com", _context.Users.Find(request.Username).Email)
-                {
-                    Subject = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State),
-                    Body = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State)
-                })
-                {
-                   smtpClient.Send(message);
+                    using (var message = new MailMessage("noyek.mail@gmail.com", _context.Users.Find(request.Username).Email)
+                    {
+                        Subject = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State),
+                        Body = string.Format("Status of the Request {0} has changed to {1}", request.RequestId, request.State)
+                    })
+                    {
+                        smtpClient.Send(message);
+                    }
                 }
-
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -194,7 +360,7 @@ namespace reqMan.Controllers
             }
 
             request.RequestId = GetNextRequestId();
-            request.State = RequestStates.DB_REQUESTED;
+            request.State = data.State;
 
             if (request.Attachment != null)
             {

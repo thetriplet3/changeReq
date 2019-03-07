@@ -65,6 +65,8 @@ export const AdminLayoutRoutes: Routes = [
     // },
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'table-list', component: TableListComponent },
+    { path: 'requests/saved/:requestId', component: CreateChangeRequestComponent },
+    { path: 'requests/saved', component: RequestListComponent },
     { path: 'requests/new/:requestTypeId', component: CreateChangeRequestComponent },
     { path: 'requests/new', component: CreateChangeRequestComponent },
     { path: 'requests/:requestId', component: ViewChangeRequestComponent },

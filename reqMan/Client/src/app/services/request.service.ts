@@ -30,6 +30,9 @@ export class RequestService {
   updateRequest(requestObj) {
     return this.http.put<Request>(`/api/Requests/${requestObj.requestId}`, requestObj);
   }
+  saveRequest(requestId, requestObj) {
+    return this.http.put<Request>(`/api/Requests/${requestId}/Save`, requestObj);
+  }
   preValidateRequest() {
     return this.http.get<any>("/api/Requests/Validate");
   }

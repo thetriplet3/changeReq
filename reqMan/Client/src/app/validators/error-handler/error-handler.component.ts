@@ -1,3 +1,4 @@
+
 declare var $: any;
 export class ErrorHandler {
 
@@ -7,9 +8,16 @@ export class ErrorHandler {
         }
 
     public static showErrorMessages(messages: object) {
-        for(var message in messages) {
-            this.showErrorMessage(messages[message]);
+        console.log(typeof (messages));
+        if (typeof (messages) === "string") {
+            this.showErrorMessage(messages);
         }
+        else {
+            for (var message in messages) {
+                this.showErrorMessage(messages[message]);
+            }
+        }
+
     }
     private static showErrorMessage(message: string): void {
         $.notify({

@@ -5,7 +5,7 @@ import { Request, Attachment } from '../../models/request.model'
 import { NgForm } from '@angular/forms';
 
 import { ErrorHandler } from '../../validators/error-handler/error-handler.component'
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -25,16 +25,21 @@ export class CreateChangeRequestComponent implements OnInit {
   attachments: Attachment[];
   selectedFiles: File[];
   requestTypeTitle: string;
+  requestId: string;
 
   isValidated: boolean = false;
   isRunning: boolean = false;
   isAfter10th: boolean = false;
+  isSaveAction: boolean = false;
+  isSavedRequest: boolean = false;
 
   STR_ATTACH_FORM: string = "Attach Form"
   STR_UPLOAD_FORM: string = "Upload Form"
   STR_DOWNLOAD_FORM: string = "Download Form";
+  STR_STATUS_REQUESTED: string = "requested";
+  STR_STATUS_SAVED: string = "saved";
 
-  constructor(private requestService: RequestService, private route: ActivatedRoute) { }
+  constructor(private requestService: RequestService, private route: ActivatedRoute, private router: Router) { }
 
   @ViewChild('btnAttachForm') btnAttachForm: ElementRef;
 
@@ -48,15 +53,16 @@ export class CreateChangeRequestComponent implements OnInit {
     });
     this.request.optOut = false;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
-    this.requestService.preValidateRequest().subscribe((res) =>{
+
+    this.requestService.preValidateRequest().subscribe((res) => {
       this.isAfter10th = res.isAfter10th;
     })
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('requestTypeId')) {
+        this.isSavedRequest = false;
         var requestTypeId = paramMap.get('requestTypeId');
-        if(requestTypeId === "REQ-T-002") {
+        if (requestTypeId === "REQ-T-002") {
           this.STR_DOWNLOAD_FORM = "FAQ";
         }
         else {
@@ -68,15 +74,46 @@ export class CreateChangeRequestComponent implements OnInit {
           this.requestTypeTitle = data.name;
         });
       }
+      else if (paramMap.has("requestId")) {
+        this.isSavedRequest = true;
+
+        this.requestId = paramMap.get("requestId");
+        this.requestService.getRequest(this.requestId).subscribe((data) => {
+          this.request = data;
+          this.request.dateRequested = data.dateRequested.substring(0, 10);
+          if (this.request.requestTypeId === "REQ-T-002") {
+            this.STR_DOWNLOAD_FORM = "FAQ";
+          }
+          else {
+            this.STR_DOWNLOAD_FORM = "Download Form";
+          }
+        })
+      }
     });
   }
 
-  submitRequest(form: NgForm) {
+  saveRequest() {
+    this.isSaveAction = true;
+  }
+
+  submitRequest(event: Event, form: NgForm) {
+
     this.isRunning = true;
     let newFormData = new FormData();
     let newRequest: Request = form.value;
+    let msg: string;
     newRequest.username = this.currentUser.username;
     newRequest.requestTypeId = this.request.requestTypeId
+    newRequest.requestId = this.requestId;
+
+    if (this.isSaveAction) {
+      newRequest.state = "SAVED";
+      msg = this.STR_STATUS_SAVED;
+    }
+    else {
+      newRequest.state = "REQUESTED";
+      msg = this.STR_STATUS_REQUESTED;
+    }
 
     for (var key in newRequest) {
       newFormData.append(key, newRequest[key])
@@ -88,22 +125,49 @@ export class CreateChangeRequestComponent implements OnInit {
       }
     }
 
-    this.requestService.createRequest(newFormData).subscribe((data: any) => {
-      this.isRunning = false;
-      $.notify({
-        icon: "notifications",
-        message: `Change Request <strong><a href="/requests/${data.requestId}"> ${data.requestId}</a></strong> created!`
+    if (!this.isSavedRequest) {
+      this.requestService.createRequest(newFormData).subscribe((data: any) => {
+        this.isRunning = false;
 
-      }, {
-          placement: {
-            from: "bottom",
-            align: "right"
-          }
-        });
-    }, (error: any) => {
-      this.isRunning = false;
-      ErrorHandler.showErrorMessages(error.error);
-    });
+        if (this.isSaveAction) {
+          this.isSaveAction = false;
+          this.router.navigate([`/requests/saved/${data.requestId}`]);
+        }
+        $.notify({
+          icon: "notifications",
+          message: `Change Request <strong><a href="/requests/${data.requestId}"> ${data.requestId}</a></strong> ${msg}!`
+
+        }, {
+            placement: {
+              from: "bottom",
+              align: "right"
+            }
+          });
+      }, (error: any) => {
+        this.isRunning = false;
+        ErrorHandler.showErrorMessages(error.error);
+      });
+    }
+    else {
+      this.requestService.saveRequest(newRequest.requestId, newFormData).subscribe((data) => {
+        this.isRunning = false;
+        this.isSaveAction = false;
+        $.notify({
+          icon: "notifications",
+          message: `Change Request <strong><a href="/requests/${newRequest.requestId}"> ${newRequest.requestId}</a></strong> ${msg}!`
+
+        }, {
+            placement: {
+              from: "bottom",
+              align: "right"
+            }
+          });
+      }, (error: any) => {
+        this.isRunning = false;
+        ErrorHandler.showErrorMessages(error.error);
+      })
+    }
+
   }
 
   fileChange(event) {

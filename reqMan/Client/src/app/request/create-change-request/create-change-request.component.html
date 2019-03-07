@@ -1,13 +1,21 @@
 <div class="background">
-  <div class="card request-body data-load">
-    <div class="card-header card-header-blue">
-      <h4 class="card-title">Change Request - {{requestTypeTitle}}</h4>
-    </div>
-    <div class="card-body">
-      <div class="alert alert-warning" *ngIf="!isAfter10th">
-        This request will be only considered on next payroll since cutoff date(10th) has passed
+  <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest($event, frmRequest)">
+    <div class="card request-body data-load">
+      <div class="card-header card-header-blue">
+        <div class="row">
+          <div class="col-md-10">
+            <h4 class="card-title">Change Request - {{requestTypeTitle}}</h4>
+          </div>
+          <div class="cold-md-4">
+            <button type="submit" id="btnSaveRequest" name="btnSaveRequest" class="btn btn-warning"
+              [disabled]="isRunning" (click)="saveRequest()">Save</button>
+          </div>
+        </div>
       </div>
-      <form #frmRequest="ngForm" id="frmRequest" (ngSubmit)="submitRequest(frmRequest)">
+      <div class="card-body">
+        <div class="alert alert-warning" *ngIf="isAfter10th">
+          This request will be only considered on next payroll since cutoff date(10th) has passed
+        </div>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group has-blue">
@@ -18,8 +26,8 @@
           <div class="col-md-6">
             <div class="form-group has-blue">
               <label class="bmd-label-floating ovr-label">Employee Name</label>
-              <input type="text" id="username" class="form-control" [value]="currentUser.firstName + ' ' + currentUser.lastName "
-                disabled>
+              <input type="text" id="username" class="form-control"
+                [value]="currentUser.firstName + ' ' + currentUser.lastName " disabled>
             </div>
           </div>
         </div>
@@ -27,9 +35,11 @@
           <div class="col-md-6">
             <div class="form-group has-blue">
               <label class="bmd-label-floating">Request Type</label>
-              <mat-select class="form-control" id="requestType" #requestType="ngModel" name="requestType" [(value)]="request.requestTypeId" [(ngModel)]="request.requestTypeId"
+              <mat-select class="form-control" id="requestType" #requestType="ngModel" name="requestType"
+                [(value)]="request.requestTypeId" [(ngModel)]="request.requestTypeId"
                 (selectionChange)="requestTypeChanged($event)" disabled>
-                <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">{{requestType.name}}</mat-option>
+                <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">
+                  {{requestType.name}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -48,15 +58,15 @@
             <div class="col-md-6">
               <div class="form-group has-blue">
                 <label class="bmd-label-floating ovr-label">Current Amount</label>
-                <input type="number" id="currentAmount" class="form-control" #currentAmount="ngModel" name="currentAmount"
-                  [(ngModel)]="request.currentAmount"  required>
+                <input type="number" id="currentAmount" class="form-control" #currentAmount="ngModel"
+                  name="currentAmount" [(ngModel)]="request.currentAmount" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group has-blue">
                 <label class="bmd-label-floating">Revised Amount</label>
-                <input type="number" id="revisedAmount" class="form-control" #revisedAmount="ngModel" name="revisedAmount"
-                  [(ngModel)]="request.revisedAmount" required>
+                <input type="number" id="revisedAmount" class="form-control" #revisedAmount="ngModel"
+                  name="revisedAmount" [(ngModel)]="request.revisedAmount" required>
               </div>
             </div>
           </div>
@@ -67,19 +77,22 @@
             <div class="col-md-5">
               <div class="form-group has-blue">
                 <label class="bmd-label-floating ovr-label">Current</label>
-                <input type="number" id="currentAmount" class="form-control" #currentAmount="ngModel" name="currentAmount"
-                  [(ngModel)]="request.currentAmount" step='0.01' min="1" max="99" [required]="request.optOut === false" [disabled]="request.optOut === true">
+                <input type="number" id="currentAmount" class="form-control" #currentAmount="ngModel"
+                  name="currentAmount" [(ngModel)]="request.currentAmount" step='0.01' min="1" max="99"
+                  [required]="request.optOut === false" [disabled]="request.optOut === true">
               </div>
             </div>
             <div class="col-md-5">
               <div class="form-group has-blue">
                 <label class="bmd-label-floating">Revised</label>
-                <input type="number" id="revisedAmount" class="form-control" #revisedAmount="ngModel" name="revisedAmount"
-                  [(ngModel)]="request.revisedAmount" step='0.01' min="1" max="99" [required]="request.optOut === false" [disabled]="request.optOut === true">
+                <input type="number" id="revisedAmount" class="form-control" #revisedAmount="ngModel"
+                  name="revisedAmount" [(ngModel)]="request.revisedAmount" step='0.01' min="1" max="99"
+                  [required]="request.optOut === false" [disabled]="request.optOut === true">
               </div>
             </div>
             <div class="col-md-2">
-              <mat-checkbox id="optOut" #optOut="ngModel" name="optOut" [(ngModel)]="request.optOut" color="primary" [disabled]="request.currentAmount || request.revisedAmount">Opt
+              <mat-checkbox id="optOut" #optOut="ngModel" name="optOut" [(ngModel)]="request.optOut" color="primary"
+                [disabled]="request.currentAmount || request.revisedAmount">Opt
                 Out</mat-checkbox>
             </div>
           </div>
@@ -91,8 +104,8 @@
               <div class="form-group has-blue">
                 <label class="bmd-label-floating ovr-label">Amount requested
                   for Cycle to work scheme</label>
-                <input type="number" id="cycleSchemeRequest" class="form-control" #cycleSchemeRequest="ngModel" name="cycleSchemeRequest"
-                  [(ngModel)]="request.cycleSchemeRequest" required>
+                <input type="number" id="cycleSchemeRequest" class="form-control" #cycleSchemeRequest="ngModel"
+                  name="cycleSchemeRequest" [(ngModel)]="request.cycleSchemeRequest" required>
               </div>
             </div>
             <div class="col-md-6">
@@ -100,7 +113,7 @@
                 <label class="bmd-label-floating ovr-label">Check Partner List</label>
                 <!-- <input type="text" id="cyclePartnerList" class="form-control" #cyclePartnerList="ngModel" name="cyclePartnerList"
                   [(ngModel)]="request.cyclePartnerList" disabled> -->
-                  <a class="form-control" href="www.cyclescheme.co.uk/e391af">Cycle Scheme</a>
+                <a class="form-control" href="www.cyclescheme.co.uk/e391af">Cycle Scheme</a>
               </div>
             </div>
           </div>
@@ -131,15 +144,15 @@
               <div class="col-md-4">
                 <div class="form-group has-blue">
                   <label class="bmd-label-floating ovr-label">Zone From</label>
-                  <input type="text" id="zoneFrom" class="form-control" #zoneFrom="ngModel" name="zoneFrom" [(ngModel)]="request.zoneFrom"
-                    required>
+                  <input type="text" id="zoneFrom" class="form-control" #zoneFrom="ngModel" name="zoneFrom"
+                    [(ngModel)]="request.zoneFrom" required>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group has-blue">
                   <label class="bmd-label-floating ovr-label">Zone To</label>
-                  <input type="text" id="zoneTo" class="form-control" #zoneTo="ngModel" name="zoneTo" [(ngModel)]="request.zoneTo"
-                    required>
+                  <input type="text" id="zoneTo" class="form-control" #zoneTo="ngModel" name="zoneTo"
+                    [(ngModel)]="request.zoneTo" required>
                 </div>
               </div>
             </div>
@@ -150,8 +163,8 @@
               <div class="col-md-6">
                 <div class="form-group has-blue">
                   <label class="bmd-label-floating ovr-label">Link</label>
-                  <input type="url" id="tasteCardLink" class="form-control" #tasteCardLink="ngModel" name="tasteCardLink"
-                    [(ngModel)]="request.tasteCardLink" required>
+                  <input type="url" id="tasteCardLink" class="form-control" #tasteCardLink="ngModel"
+                    name="tasteCardLink" [(ngModel)]="request.tasteCardLink" required>
                 </div>
               </div>
             </div>
@@ -162,7 +175,8 @@
           <div class="col-md-12">
             <div class="form-group has-blue">
               <label class="bmd-label-floating ovr-label">Reason</label>
-              <textarea rows="3" id="reason" class="form-control" #description="ngModel" name="description" [(ngModel)]="request.description"></textarea>
+              <textarea rows="3" id="reason" class="form-control" #description="ngModel" name="description"
+                [(ngModel)]="request.description"></textarea>
             </div>
           </div>
         </div>
@@ -171,25 +185,30 @@
           <div class="row">
             <div class="form-download" *ngIf="requestTypeFormPath">
               <div class="col-md-6">
-                <button type="button" class="btn btn-blue" (click)="downloadForm(requestTypeFormPath)">{{STR_DOWNLOAD_FORM}}</button>
+                <button type="button" class="btn btn-blue"
+                  (click)="downloadForm(requestTypeFormPath)">{{STR_DOWNLOAD_FORM}}</button>
               </div>
             </div>
             <div class="col-md-6">
               <div class="has-blue">
-                <button type="button" #btnAttachForm class="btn btn-warning" (click)="fileAttach.click()">Attach Form</button>
-                <input type="file" class="form-control" #fileAttach (change)="fileChange($event)" placeholder="Upload file" hidden />
+                <button type="button" #btnAttachForm class="btn btn-warning" (click)="fileAttach.click()">Attach
+                  Form</button>
+                <input type="file" class="form-control" #fileAttach (change)="fileChange($event)"
+                  placeholder="Upload file" hidden />
               </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <button type="submit" id="btnRequest" class="btn btn-blue" [disabled]="isRunning">Create</button>
+          <div class="col-md-3">
+            <div class="has-blue">
+              <button type="submit" id="btnRequest" class="btn btn-blue" [disabled]="isRunning">Create</button>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
+      <div class="card-footer">
+      </div>
     </div>
-    <div class="card-footer">
-    </div>
-  </div>
+  </form>
 </div>
