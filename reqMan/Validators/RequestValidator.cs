@@ -32,7 +32,7 @@ namespace reqMan.Validators
         private void PensionValidator(Request request)
         {
             string message = string.Empty;
-            if(!(request.CurrentPensionPerecentage.In(1, 99) || request.RevisedPensionPerecentage.In(1, 99)))
+            if(!((request.CurrentAmount > 0 && request.CurrentAmount < 100) && (request.RevisedAmount > 0 && request.RevisedAmount < 100)))
             {
                 message = "Current and Revised values should be in between 1 and 99.";
                 validatorMessages.Add("PensionValError", message);

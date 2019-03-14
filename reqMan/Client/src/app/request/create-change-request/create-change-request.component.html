@@ -35,12 +35,14 @@
           <div class="col-md-6">
             <div class="form-group has-blue">
               <label class="bmd-label-floating">Request Type</label>
-              <mat-select class="form-control" id="requestType" #requestType="ngModel" name="requestType"
+              <input type="text" class="form-control" id="requestType" #requestType="ngModel" name="requestType"
+              [(value)]="requestTypeTitle" [(ngModel)]="request.requestTypeId" disabled>
+              <!-- <mat-select class="form-control" id="requestType" #requestType="ngModel" name="requestType"
                 [(value)]="request.requestTypeId" [(ngModel)]="request.requestTypeId"
                 (selectionChange)="requestTypeChanged($event)" disabled>
                 <mat-option *ngFor="let requestType of requestTypes" [value]="requestType.requestTypeId">
                   {{requestType.name}}</mat-option>
-              </mat-select>
+              </mat-select> -->
             </div>
           </div>
           <div class="col-md-6">
@@ -113,7 +115,7 @@
                 <label class="bmd-label-floating ovr-label">Check Partner List</label>
                 <!-- <input type="text" id="cyclePartnerList" class="form-control" #cyclePartnerList="ngModel" name="cyclePartnerList"
                   [(ngModel)]="request.cyclePartnerList" disabled> -->
-                <a class="form-control" href="www.cyclescheme.co.uk/e391af">Cycle Scheme</a>
+                <a class="form-control" href="http://www.cyclescheme.co.uk/e391af">Cycle Scheme</a>
               </div>
             </div>
           </div>
@@ -202,7 +204,7 @@
         <div class="row">
           <div class="col-md-3">
             <div class="has-blue">
-              <button type="submit" id="btnRequest" class="btn btn-blue" [disabled]="isRunning">Create</button>
+              <button type="submit" id="btnRequest" class="btn btn-blue" [disabled]="isRunning">SUBMIT</button>
             </div>
           </div>
         </div>
